@@ -1,9 +1,9 @@
 import * as Selector from "../selector/selector.js";
 
-export function create(opts) {
+export function createWidget(opts) {
   const widget = {
     isOpen: false,
-    selector: Selector.create(),
+    selector: Selector.createSelector(),
   };
   return widget;
 };

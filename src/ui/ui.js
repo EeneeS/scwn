@@ -10,4 +10,4 @@ function toggleWidget() {
   const $openWidgetContainer = document.querySelector(".open-widget-container");
   $openBtn.classList.toggle("hidden");
   $openWidgetContainer.classList.toggle("hidden");
-};
+}

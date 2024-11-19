@@ -1,8 +1,8 @@
 import * as Widget from "../objects/widget/widget.js";
 
-export function create(opts) {
+export function createState(opts) {
   const state = {
-    widget: Widget.create(opts),
+    widget: Widget.createWidget(opts),
   };
   return state;
 };

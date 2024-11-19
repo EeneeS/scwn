@@ -8,7 +8,7 @@ const $closeBtn = document.querySelector(".close-widget-btn");
 
 function init() {
 
-  const state = State.create();
+  const state = State.createState();
   UI.init();
 
   $openBtn.addEventListener('click', function() {
