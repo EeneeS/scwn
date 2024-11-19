@@ -1,0 +1,31 @@
+<script defer src="./main.js" type="module"></script>
+
+<style>
+  .widget-container {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .element-highlight {
+    outline: 2px solid #3498db;
+    cursor: pointer;
+  }
+</style>
+
+<h1> this is a test h1</h1>
+<p> this is a test p </p>
+
+<div class="widget-container">
+  <div class="open-widget-btn">
+    open widget
+  </div>
+  <div class="open-widget-container hidden">
+    <button class="close-widget-btn">close widget</button>
+    <button id="start-selector">start select</button>
+  </div>
+</div>
