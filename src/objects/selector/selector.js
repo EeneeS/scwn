@@ -74,8 +74,9 @@ function handleMouseClick(e, state) {
   const target = /** @type {HTMLElement} */ (e.target);
   if (isSelectable(target)) {
     state.widget.selector.selectedElement = target;
-    toggle(state);
+    Bus.publish('element-selected', { type: state.widget.selector.selectedElement });
     resetElementSelector(state);
+    toggle(state);
   };
 };
 

@@ -1,9 +1,11 @@
 import * as Bus from "../bus.js";
+import { textElements } from "../utils.js";
 
 export function init() {
   Bus.listen('open-widget', toggleWidget);
   Bus.listen('close-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
+  Bus.listen('element-selected', handleElementSelected);
 };
 
 function toggleWidget() {
@@ -21,4 +23,21 @@ function toggleSelector(e) {
   const $toggleSelctorButton = document.querySelector(".toggle-selector-btn");
   const t = isActive ? "disable selector" : "start selector";
   $toggleSelctorButton.textContent = t;
+};
+
+/**
+ * @param {CustomEvent} e 
+ */
+function handleElementSelected(e) {
+  const el = e.detail.type;
+  const type = el.tagName.toLowerCase();
+  if (textElements.includes(type)) {
+    loadTextEditor();
+  } else {
+    alert("NYI");
+  }
+};
+
+function loadTextEditor() {
+  console.log('text element selected');
 };
