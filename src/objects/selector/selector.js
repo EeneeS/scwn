@@ -7,6 +7,7 @@ export function createSelector() {
   const selector = {
     isActive: false,
     selectedElement: null,
+    listener: null,
   };
   return selector;
 };
@@ -29,9 +30,11 @@ function resetElementSelector(state) {
     state.widget.selector.selectedElement.classList.remove('element-highlight');
   };
   state.widget.selector.selectedElement = null;
+
   document.removeEventListener('mouseover', handleMouseOver);
   document.removeEventListener('mouseout', handleMouseOut);
-  document.removeEventListener('click', (e) => handleMouseClick(e, state));
+  document.removeEventListener('click', state.widget.selector.listener);
+
   Bus.publish('toggle-selector', { isActive: state.widget.selector.isActive });
 };
 
@@ -41,7 +44,8 @@ function resetElementSelector(state) {
 function initElementSelector(state) {
   document.addEventListener('mouseover', handleMouseOver);
   document.addEventListener('mouseout', handleMouseOut);
-  document.addEventListener('click', (e) => handleMouseClick(e, state));
+  state.widget.selector.listener = (e) => handleMouseClick(e, state);
+  document.addEventListener('click', state.widget.selector.listener);
 }
 
 /**
@@ -65,6 +69,7 @@ function handleMouseOut(e) {
 
 };
 
+
 /**
  * @param {MouseEvent} e 
  * @param {State} state 
@@ -75,7 +80,6 @@ function handleMouseClick(e, state) {
     state.widget.selector.selectedElement = target;
     Bus.publish('element-selected', { type: state.widget.selector.selectedElement });
     resetElementSelector(state);
-    toggle(state);
   };
 };
 
