@@ -3,6 +3,7 @@ import * as Bus from "../bus.js";
 export function init() {
   Bus.listen('open-widget', toggleWidget);
   Bus.listen('close-widget', toggleWidget);
+  Bus.listen('toggle-selector', toggleSelector);
 };
 
 function toggleWidget() {
@@ -11,3 +12,13 @@ function toggleWidget() {
   $openBtn.classList.toggle("hidden");
   $openWidgetContainer.classList.toggle("hidden");
 }
+
+function toggleSelector(e) {
+  const isActive = e.detail.isActive;
+  const $toggleSelctorButton = document.querySelector(".toggle-selector-btn");
+  if (isActive) {
+    $toggleSelctorButton.textContent = "disable selector";
+  } else {
+    $toggleSelctorButton.textContent = "start selector";
+  }
+};
