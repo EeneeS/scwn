@@ -13,12 +13,12 @@ function toggleWidget() {
   $openWidgetContainer.classList.toggle("hidden");
 }
 
+/**
+ * @param {CustomEvent} e 
+  */
 function toggleSelector(e) {
   const isActive = e.detail.isActive;
   const $toggleSelctorButton = document.querySelector(".toggle-selector-btn");
-  if (isActive) {
-    $toggleSelctorButton.textContent = "disable selector";
-  } else {
-    $toggleSelctorButton.textContent = "start selector";
-  }
+  const t = isActive ? "disable selector" : "start selector";
+  $toggleSelctorButton.textContent = t;
 };
