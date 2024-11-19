@@ -1,3 +1,6 @@
+/**
+ * @returns {Selector}
+ */
 export function createSelector() {
   const selector = {
     isActive: false,
@@ -6,5 +9,8 @@ export function createSelector() {
   return selector;
 };
 
+/**
+ * @param {State} state 
+ */
 export function enable(state) {
 };
