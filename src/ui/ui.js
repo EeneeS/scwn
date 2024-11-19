@@ -32,12 +32,24 @@ function handleElementSelected(e) {
   const el = e.detail.type;
   const type = el.tagName.toLowerCase();
   if (textElements.includes(type)) {
-    loadTextEditor();
+    loadTextEditor(el);
   } else {
     alert("NYI");
   }
 };
 
-function loadTextEditor() {
-  console.log('text element selected');
+// TODO: when resetting hide all the editors
+
+/**
+ * @param {HTMLElement} el 
+ */
+function loadTextEditor(el) {
+  const $textElementEditor = document.querySelector(".text-element-editor");
+  $textElementEditor.classList.remove("hidden");
+
+  /** @type {HTMLInputElement|null} */
+  const $sizeInput = $textElementEditor.querySelector("#text-size");
+  const computedFontSize = getComputedStyle(el).fontSize.slice(0, -2);
+  $sizeInput.value = computedFontSize;
 };
+

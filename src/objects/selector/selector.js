@@ -24,16 +24,15 @@ export function toggle(state) {
  * @param {State} state 
  */
 function resetElementSelector(state) {
-  const { selector } = state.widget;
-  selector.isActive = false;
-  if (selector.selectedElement) {
-    selector.selectedElement.classList.remove('element-highlight');
+  state.widget.selector.isActive = false;
+  if (state.widget.selector.selectedElement) {
+    state.widget.selector.selectedElement.classList.remove('element-highlight');
   };
-  selector.selectedElement = null;
+  state.widget.selector.selectedElement = null;
   document.removeEventListener('mouseover', handleMouseOver);
   document.removeEventListener('mouseout', handleMouseOut);
   document.removeEventListener('click', (e) => handleMouseClick(e, state));
-  Bus.publish('toggle-selector', { isActive: selector.isActive });
+  Bus.publish('toggle-selector', { isActive: state.widget.selector.isActive });
 };
 
 /**

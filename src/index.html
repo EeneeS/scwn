@@ -15,9 +15,27 @@
     outline: 2px solid #3498db;
     cursor: pointer;
   }
+
+  .open-widget-btn {
+    color: white;
+    background-color: gray;
+    padding: 1rem 2rem;
+  }
+
+  .open-widget-container {
+    min-height: 600px;
+    min-width: 400px;
+    background-color: gray;
+  }
 </style>
 
-<h1> this is a test h1</h1>
+<style>
+  .test {
+    font-size: 8 rem;
+  }
+</style>
+
+<h1 class="test"> this is a test h1</h1>
 <p> this is a test p </p>
 
 <div class="widget-container">
@@ -27,5 +45,9 @@
   <div class="open-widget-container hidden">
     <button class="close-widget-btn">close widget</button>
     <button class="toggle-selector-btn">start select</button>
+    <div class="text-element-editor hidden">
+      <label for="text-size">text size</label>
+      <input id="text-size" type="number">
+    </div>
   </div>
 </div>
