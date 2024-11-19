@@ -17,7 +17,7 @@ function toggleWidget() {
 
 /**
  * @param {CustomEvent} e 
-  */
+ */
 function toggleSelector(e) {
   const isActive = e.detail.isActive;
   const $toggleSelctorButton = document.querySelector(".toggle-selector-btn");
@@ -33,6 +33,7 @@ function handleElementSelected(e) {
   const type = el.tagName.toLowerCase();
   if (textElements.includes(type)) {
     loadTextEditor(el);
+    console.log(el);
   } else {
     alert("NYI");
   }
@@ -51,5 +52,17 @@ function loadTextEditor(el) {
   const $sizeInput = $textElementEditor.querySelector("#text-size");
   const computedFontSize = getComputedStyle(el).fontSize.slice(0, -2);
   $sizeInput.value = computedFontSize;
+  $sizeInput.addEventListener('change', function() {
+    el.style.fontSize = $sizeInput.value + "px";
+  });
+
+  /** @type {HTMLInputElement|null} */
+  const $colorInput = $textElementEditor.querySelector("#text-color");
+  const computedColor = getComputedStyle(el).color;
+  $colorInput.value = computedColor;
+  $colorInput.addEventListener('change', function() {
+    el.style.color = $colorInput.value;
+  });
+
 };
 
