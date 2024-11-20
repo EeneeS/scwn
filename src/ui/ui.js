@@ -1,5 +1,5 @@
 import * as Bus from "../bus.js";
-import { selectedElementType, textElements } from "../utils.js";
+import * as Utils from "../utils.js";
 
 export function init() {
   Bus.listen('open-widget', toggleWidget);
@@ -16,8 +16,7 @@ function toggleWidget() {
 }
 
 /**
- * Toggles the selector UI based on the event's detail.
- * @param {CustomEvent} e - The custom event containing `isActive` in its details.
+ * @param {CustomEvent} e
  */
 function toggleSelector(e) {
   const { isActive } = e.detail;
@@ -33,7 +32,7 @@ function toggleSelector(e) {
  */
 function handleElementSelected(e) {
   const el = e.detail.el;
-  if (selectedElementType(el) === "TEXT") {
+  if (Utils.selectedElementType(el) === "TEXT") {
     loadTextEditor();
   };
 };

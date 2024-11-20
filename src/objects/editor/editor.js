@@ -19,6 +19,9 @@ export function createEditor() {
 export function watch(state, el) {
   resetListeners(state);
   if (Utils.selectedElementType(el) === "TEXT") handleWatchText(state, el);
+  else {
+    alert(`${el.tagName} not yet implemented`);
+  }
 };
 
 /**
