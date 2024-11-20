@@ -1,4 +1,3 @@
-import { createState } from "../../state/state.js";
 import * as Utils from "../../utils.js";
 
 export function createEditor() {
