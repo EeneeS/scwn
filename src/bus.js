@@ -1,4 +1,4 @@
-const eb = document.createComment('my-event-bus');
+const eb = document.createComment('widget-event-bus');
 
 // use for debugging
 //document.body.append(eb);
