@@ -34,27 +34,35 @@ function handleWatchText(state, el) {
   const $tci = $te.querySelector("#text-color");
 
   const computedSize = getComputedStyle(el).fontSize.slice(0, -2);
-  $tsi.value = computedSize;
-
   const computedColor = getComputedStyle(el).color;
+
+  $tsi.value = computedSize;
   $tci.value = computedColor;
 
-  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(e, state, el);
-  $tsi.addEventListener('change', state.widget.editor.textEditor.listeners.size);
+  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(e, el);
+  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(e, el);
 
+  $tsi.addEventListener('change', state.widget.editor.textEditor.listeners.size);
+  $tci.addEventListener('change', state.widget.editor.textEditor.listeners.color);
 };
 
 /**
- * @param {Event} e 
- * @param {State} state 
+ * @param {Event} evt 
  * @param {HTMLElement} el 
  */
-function handleTextSizeChange(e, state, el) {
-  const target = /** @type {HTMLInputElement} */ (e.target);
+function handleTextSizeChange(evt, el) {
+  const target = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontSize = target.value;
 }
 
-// FIX: I know this is not the most efficient.
+/**
+ * @param {Event} evt 
+ * @param {HTMLElement} el 
+ */
+function handleTextColorChange(evt, el) {
+  const target = /** @type {HTMLInputElement} */ (evt.target);
+  el.style.color = target.value;
+}
 
 /**
  * @param {State} state
