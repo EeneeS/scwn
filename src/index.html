@@ -1,4 +1,5 @@
 <script defer src="./main.js" type="module"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css">
 
 <style>
   .widget-container {
@@ -9,15 +10,6 @@
     position: fixed;
     right: 25px;
     bottom: 15px;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .element-highlight {
-    outline: 2px solid #0084FF;
-    cursor: pointer;
   }
 
   .open-widget-btn {
@@ -49,6 +41,28 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .text-element-editor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .text-element-editor div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .element-highlight {
+    outline: 2px solid #0084FF;
+    cursor: pointer;
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
 
@@ -72,14 +86,19 @@
         <path
           d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 0 0-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z" />
       </svg>
-      <p>Select an element to get started.</p>
+      <p>Select an element you want to edit.</p>
     </div>
     <div class="text-element-editor hidden">
+      <label for="text-value">Text value:</label>
       <input id="text-value" />
-      <label for="text-size">text size</label>
-      <input id="text-size" type="number">
-      <label for="text-color">text color</label>
-      <input id="text-color" type="color">
+      <div>
+        <label for="text-size">Text size:</label>
+        <input id="text-size" type="number">
+      </div>
+      <div>
+        <label for="text-color">Text color:</label>
+        <input id="text-color" type="color">
+      </div>
     </div>
   </div>
   <img class="open-widget-btn" src="logo.svg" />
