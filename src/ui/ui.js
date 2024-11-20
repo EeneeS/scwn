@@ -16,14 +16,17 @@ function toggleWidget() {
 }
 
 /**
- * @param {CustomEvent} e 
+ * Toggles the selector UI based on the event's detail.
+ * @param {CustomEvent} e - The custom event containing `isActive` in its details.
  */
 function toggleSelector(e) {
-  const isActive = e.detail.isActive;
-  const $toggleSelctorButton = document.querySelector(".toggle-selector-btn");
-  const t = isActive ? "disable selector" : "start selector";
-  $toggleSelctorButton.textContent = t;
-};
+  const { isActive } = e.detail;
+  const $toggleSelectorButton = document.querySelector(".toggle-selector-btn");
+  if (isActive) {
+    hideEditors();
+  }
+  $toggleSelectorButton.textContent = isActive ? "Disable Selector" : "Start Selector";
+}
 
 /**
  * @param {CustomEvent} e 
@@ -42,3 +45,7 @@ function loadTextEditor() {
   $textElementEditor.classList.remove("hidden");
 };
 
+function hideEditors() {
+  const $textElementEditor = document.querySelector(".text-element-editor");
+  $textElementEditor.classList.add("hidden");
+};
