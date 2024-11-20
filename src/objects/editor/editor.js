@@ -40,7 +40,7 @@ function handleWatchText(state, el) {
   const computedColor = getComputedStyle(el).color;
 
   $tsi.value = computedSize;
-  $tci.value = computedColor;
+  $tci.value = Utils.rgbToHex(computedColor);
 
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(e, el);
   state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(e, el);
@@ -76,5 +76,5 @@ function resetListeners(state) {
   const $tci = $te.querySelector("#text-color");
   $tsi.removeEventListener('change', state.widget.editor.textEditor.listeners.size);
   $tci.removeEventListener('change', state.widget.editor.textEditor.listeners.color);
-  state.widget.editor = createEditor();
+  //state.widget.editor = createEditor();
 };

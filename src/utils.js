@@ -17,3 +17,12 @@ export function selectedElementType(el) {
   };
 };
 
+/**
+ * @param {string} rgb
+ * @returns {string}
+ */
+export function rgbToHex(rgb) {
+  const [r, g, b] = rgb.match(/\d+/g).map(Number);
+  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`;
+}
+
