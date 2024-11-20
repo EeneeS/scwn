@@ -11,9 +11,9 @@ declare global {
   type Editor = {
     textEditor: {
       listeners: {
-        value: ((e: Event) => void) | null
-        size: ((e: Event) => void) | null
-        color: ((e: Event) => void) | null
+        value: ((e: Event) => void) | null;
+        size: ((e: Event) => void) | null;
+        color: ((e: Event) => void) | null;
       }
     }
   };
@@ -25,7 +25,8 @@ declare global {
   };
 
   type State = {
-    widget: Widget
+    widget: Widget;
+    options: Object;
   };
 
 

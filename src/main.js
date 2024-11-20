@@ -7,8 +7,11 @@ import * as Selector from "./objects/selector/selector.js";
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
 
-function init() {
-  const state = State.createState();
+/**
+ * @param {Object} opts 
+ */
+function init(opts) {
+  const state = State.createState(opts);
   UI.init();
   addListeners(state);
 };
@@ -28,4 +31,9 @@ function addListeners(state) {
   });
 };
 
-init();
+export const version = "1.0.0";
+export { init };
+
+init({
+  position: "bottom-right"
+}); // for development
