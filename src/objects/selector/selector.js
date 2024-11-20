@@ -1,4 +1,5 @@
 import * as Bus from "../../bus.js";
+import * as Editor from "../editor/editor.js";
 
 /**
  * @returns {Selector}
@@ -7,7 +8,7 @@ export function createSelector() {
   const selector = {
     isActive: false,
     selectedElement: null,
-    listener: null,
+    selectElementListener: null,
   };
   return selector;
 };
@@ -33,7 +34,7 @@ function resetElementSelector(state) {
 
   document.removeEventListener('mouseover', handleMouseOver);
   document.removeEventListener('mouseout', handleMouseOut);
-  document.removeEventListener('click', state.widget.selector.listener);
+  document.removeEventListener('click', state.widget.selector.selectElementListener);
 
   Bus.publish('toggle-selector', { isActive: state.widget.selector.isActive });
 };
@@ -44,8 +45,8 @@ function resetElementSelector(state) {
 function initElementSelector(state) {
   document.addEventListener('mouseover', handleMouseOver);
   document.addEventListener('mouseout', handleMouseOut);
-  state.widget.selector.listener = (e) => handleMouseClick(e, state);
-  document.addEventListener('click', state.widget.selector.listener);
+  state.widget.selector.selectElementListener = (e) => handleMouseClick(e, state);
+  document.addEventListener('click', state.widget.selector.selectElementListener);
 }
 
 /**
@@ -69,7 +70,6 @@ function handleMouseOut(e) {
 
 };
 
-
 /**
  * @param {MouseEvent} e 
  * @param {State} state 
@@ -78,15 +78,16 @@ function handleMouseClick(e, state) {
   const target = /** @type {HTMLElement} */ (e.target);
   if (isSelectable(target)) {
     state.widget.selector.selectedElement = target;
-    Bus.publish('element-selected', { type: state.widget.selector.selectedElement });
+    Bus.publish('element-selected', { el: state.widget.selector.selectedElement });
+    Editor.watch(state, target);
     resetElementSelector(state);
   };
 };
 
 /**
- * @param {HTMLElement} element 
+ * @param {HTMLElement} el 
  * @returns {boolean}
  */
-function isSelectable(element) {
-  return !(element === document.body || element === document.documentElement || element.closest('.widget-container'));
+function isSelectable(el) {
+  return !(el === document.body || el === document.documentElement || el.closest('.widget-container'));
 };

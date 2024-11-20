@@ -7,3 +7,14 @@ export const textElements = [
   "blockquote", "address", "figure", "figcaption"
 ];
 
+/**
+ * @param {HTMLElement} el
+ */
+export function selectedElementType(el) {
+  const type = el.tagName.toLowerCase();
+  if (textElements.includes(type)) {
+    return "TEXT";
+  }
+  // TODO: add more later
+};
+

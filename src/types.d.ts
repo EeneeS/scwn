@@ -5,21 +5,27 @@ declare global {
   type Selector = {
     isActive: boolean;
     selectedElement: HTMLElement | null;
-    listener: ((e: MouseEvent) => void) | null;
+    selectElementListener: ((e: MouseEvent) => void) | null;
+  };
+
+  type Editor = {
+    textEditor: {
+      listeners: {
+        size: ((e: Event) => void) | null
+        color: ((e: Event) => void) | null
+      }
+    }
   };
 
   type Widget = {
     isOpen: boolean;
     selector: Selector;
-    editor: {
-      textEditor: {
-        fontSizeListener: any | null;
-        colorListener: any | null;
-      };
-    };
+    editor: Editor;
   };
+
   type State = {
     widget: Widget
-  }
+  };
+
 
 }
