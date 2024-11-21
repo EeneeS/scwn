@@ -4,6 +4,7 @@ import * as State from "./state/state.js";
 import * as UI from "./ui/ui.js";
 import * as Selector from "./objects/selector/selector.js";
 import * as Editor from "./objects/editor/editor.js";
+import * as EditorSave from "./objects/editor/save.js";
 
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
@@ -34,7 +35,7 @@ function addListeners(state) {
 
   $saveChangesBtn.addEventListener('click', function(e) {
     e.preventDefault();
-    Editor.publishChanges(state);
+    EditorSave.publish(state);
   });
 };
 

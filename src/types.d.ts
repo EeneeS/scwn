@@ -25,7 +25,8 @@ declare global {
     id: string;
     el: HTMLElement;
     type: string;
-    value: string;
+    original: string;
+    newValue: string;
   };
 
   type Widget = {

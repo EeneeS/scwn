@@ -1,5 +1,5 @@
 import * as Utils from "../../utils.js";
-import * as Bus from "../../bus.js";
+import * as EditorSave from "./save.js";
 
 export function createEditor() {
   return {
@@ -18,7 +18,7 @@ export function createEditor() {
 /**
  * @param {State} state 
  */
-function resetEditor(state) {
+export function resetEditor(state) {
   resetListeners(state);
   state.widget.editor = createEditor();
 };
@@ -28,7 +28,7 @@ function resetEditor(state) {
  * @param {HTMLElement} el 
  */
 export function watch(state, el) {
-  resetEditor(state);
+  resetListeners(state);
   if (Utils.selectedElementType(el) === "TEXT") handleWatchText(state, el);
   else {
     alert(`${el.tagName} not yet implemented`);
@@ -53,10 +53,10 @@ function handleWatchText(state, el) {
   elements.$tci.value = Utils.rgbToHex(computedColor);
   elements.$dtw.value = computedWeight;
 
-  state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el);
-  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el);
-  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el);
-  state.widget.editor.textEditor.listeners.weight = (e) => handleTextWeightChange(state, e, el);
+  state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
+  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);
+  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(computedColor));
+  state.widget.editor.textEditor.listeners.weight = (e) => handleTextWeightChange(state, e, el, computedWeight);
 
   addTextListeners(state, elements);
 };
@@ -65,48 +65,52 @@ function handleWatchText(state, el) {
  * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
+ * @param {string} original 
  */
-function handleTextValueChange(state, evt, el) {
+function handleTextValueChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
+  EditorSave.save(state, uniqueId, el, 'text-value', original, input.value);
   el.innerText = input.value;
-  saveChange(state, uniqueId, el, 'text-value', input.value);
 };
 
 /**
  * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
+ * @param {string} original
  */
-function handleTextSizeChange(state, evt, el) {
+function handleTextSizeChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontSize = input.value;
-  saveChange(state, uniqueId, el, 'text-size', input.value);
+  EditorSave.save(state, uniqueId, el, 'text-size', original, input.value);
 }
 
 /**
  * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
+ * @param {string} original
  */
-function handleTextWeightChange(state, evt, el) {
+function handleTextWeightChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontWeight = input.value;
-  saveChange(state, uniqueId, el, 'text-weight', input.value);
+  EditorSave.save(state, uniqueId, el, 'text-weight', original, input.value);
 }
 
 /**
  * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
+ * @param {string} original
  */
-function handleTextColorChange(state, evt, el) {
+function handleTextColorChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.color = input.value;
-  saveChange(state, uniqueId, el, 'text-color', input.value);
+  EditorSave.save(state, uniqueId, el, 'text-color', original, input.value);
 }
 
 /**
@@ -146,35 +150,4 @@ function getTextEditorElements() {
     $twi: $te.querySelector("#text-weight"),
     $dtw: $te.querySelector("#default-text-weight"),
   }
-};
-
-/**
- * @param {State} state 
- * @param {string} id 
- * @param {HTMLElement} el 
- * @param {string} type 
- * @param {string} value 
-  */
-function saveChange(state, id, el, type, value) {
-  if (state.widget.editor.changes.length === 0) {
-    Bus.publish('change-saved', {});
-  };
-  const existingChange = state.widget.editor.changes.find(change => change.id === id && change.type === type);
-  if (existingChange) {
-    existingChange.value = value;
-  } else {
-    const change = { id, el, type, value };
-    state.widget.editor.changes.push(change);
-  }
-};
-
-/**
- * @param {State} state
- */
-export function publishChanges(state) {
-  // TODO: backend
-  //state.widget.editor.changes = [];
-  Bus.publish('changes-published', {});
-  console.log(state.widget.editor.changes);
-  resetEditor(state);
 };
