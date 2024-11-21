@@ -7,6 +7,7 @@ export function createEditor() {
         value: null,
         size: null,
         color: null,
+        weight: null,
       }
     }
   };
@@ -35,14 +36,17 @@ function handleWatchText(state, el) {
   const textValue = el.innerText;
   const computedSize = getComputedStyle(el).fontSize.slice(0, -2);
   const computedColor = getComputedStyle(el).color;
+  const computedWeight = getComputedStyle(el).fontWeight;
 
   elements.$tvi.value = textValue;
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
+  elements.$twi.value = parseInt(computedWeight) <= 400 ? "400" : "700";
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(e, el);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(e, el);
   state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(e, el);
+  state.widget.editor.textEditor.listeners.weight = (e) => handleTextWeightChange(e, el);
 
   addTextListeners(state, elements);
 
@@ -70,6 +74,15 @@ function handleTextSizeChange(evt, el) {
  * @param {Event} evt 
  * @param {HTMLElement} el 
  */
+function handleTextWeightChange(evt, el) {
+  const target = /** @type {HTMLInputElement} */ (evt.target);
+  el.style.fontWeight = target.value;
+}
+
+/**
+ * @param {Event} evt 
+ * @param {HTMLElement} el 
+ */
 function handleTextColorChange(evt, el) {
   const target = /** @type {HTMLInputElement} */ (evt.target);
   el.style.color = target.value;
@@ -83,6 +96,7 @@ function addTextListeners(state, elements) {
   elements.$tvi.addEventListener('change', state.widget.editor.textEditor.listeners.value);
   elements.$tsi.addEventListener('change', state.widget.editor.textEditor.listeners.size);
   elements.$tci.addEventListener('change', state.widget.editor.textEditor.listeners.color);
+  elements.$twi.addEventListener('change', state.widget.editor.textEditor.listeners.weight);
 };
 
 /**
@@ -95,6 +109,7 @@ function resetListeners(state) {
   elements.$tvi.removeEventListener('change', state.widget.editor.textEditor.listeners.value);
   elements.$tsi.removeEventListener('change', state.widget.editor.textEditor.listeners.size);
   elements.$tci.removeEventListener('change', state.widget.editor.textEditor.listeners.color);
+  elements.$twi.removeEventListener('change', state.widget.editor.textEditor.listeners.weight);
 };
 
 /**
@@ -107,5 +122,6 @@ function getTextEditorElements() {
     $tvi: $te.querySelector("#text-value"),
     $tsi: $te.querySelector("#text-size"),
     $tci: $te.querySelector("#text-color"),
+    $twi: $te.querySelector("#text-weight"),
   }
 };

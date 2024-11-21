@@ -71,10 +71,14 @@
   h1 {
     font-size: 50px;
   }
+
+  .testp {
+    font-weight: 900;
+  }
 </style>
 
 <h1>this is a test h1</h1>
-<p>this is a test p</p>
+<p class="testp">this is a test p</p>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--develop-->
 
@@ -94,6 +98,13 @@
       <div>
         <label for="text-size">Text size:</label>
         <input id="text-size" type="number">
+      </div>
+      <div>
+        <label for="text-weight">Font weight:</label>
+        <select name="text-weight" id="text-weight">
+          <option value="400">normal</option>
+          <option value="700">bold</option>
+        </select>
       </div>
       <div>
         <label for="text-color">Text color:</label>
