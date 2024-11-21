@@ -54,10 +54,18 @@ function hideEditors() {
   $textElementEditor.classList.add("hidden");
 };
 
-function handleChangeSaved() {
+/**
+ * @param {CustomEvent} e
+ */
+function handleChangeSaved(e) {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");
-  $saveBtn.disabled = false;
+  const amount = e.detail.amount;
+  if (amount > 0) {
+    $saveBtn.disabled = false;
+  } else {
+    $saveBtn.disabled = true;
+  };
 };
 
 function handlePublishChanges() {

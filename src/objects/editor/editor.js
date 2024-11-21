@@ -51,7 +51,9 @@ function handleWatchText(state, el) {
   elements.$tvi.value = textValue;
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
+  elements.$twi.value = "normal";
   elements.$dtw.value = computedWeight;
+
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);
