@@ -20,12 +20,15 @@ function toggleSelector(e) {
 
   /** @type {HTMLElement|null} */
   const $toggleSelectorButton = document.querySelector(".toggle-selector-btn");
+  const $selectorText = document.querySelector(".start-select-box p");
 
   if (isActive) {
     hideEditors();
     $toggleSelectorButton.style.fill = "#0084FF";
+    $selectorText.textContent = "Element selector active.";
   } else {
     $toggleSelectorButton.style.fill = "black";
+    $selectorText.textContent = "Select an element you want to edit.";
   };
 }
 
