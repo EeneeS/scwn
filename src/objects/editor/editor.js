@@ -13,14 +13,22 @@ export function createEditor() {
       }
     }
   };
-}
+};
+
+/**
+ * @param {State} state 
+ */
+function resetEditor(state) {
+  resetListeners(state);
+  state.widget.editor = createEditor();
+};
 
 /**
  * @param {State} state 
  * @param {HTMLElement} el 
  */
 export function watch(state, el) {
-  resetListeners(state);
+  resetEditor(state);
   if (Utils.selectedElementType(el) === "TEXT") handleWatchText(state, el);
   else {
     alert(`${el.tagName} not yet implemented`);
@@ -168,6 +176,5 @@ export function publishChanges(state) {
   //state.widget.editor.changes = [];
   Bus.publish('changes-published', {});
   console.log(state.widget.editor.changes);
-  resetListeners(state);
-  state.widget.editor = createEditor();
+  resetEditor(state);
 };
