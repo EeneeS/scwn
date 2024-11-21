@@ -168,5 +168,6 @@ export function publishChanges(state) {
   //state.widget.editor.changes = [];
   Bus.publish('changes-published', {});
   console.log(state.widget.editor.changes);
+  resetListeners(state);
   state.widget.editor = createEditor();
 };
