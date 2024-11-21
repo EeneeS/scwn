@@ -3,9 +3,11 @@ import * as Widget from "./objects/widget/widget.js";
 import * as State from "./state/state.js";
 import * as UI from "./ui/ui.js";
 import * as Selector from "./objects/selector/selector.js";
+import * as Editor from "./objects/editor/editor.js";
 
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
+const $saveChangesBtn = document.querySelector(".save-editor-changes");
 
 /**
  * @param {Object} opts 
@@ -28,6 +30,11 @@ function addListeners(state) {
   $toggleSelectorBtn.addEventListener('click', function() {
     Selector.toggle(state);
     Bus.publish('toggle-selector', { isActive: state.widget.selector.isActive });
+  });
+
+  $saveChangesBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    Editor.publishChanges(state);
   });
 };
 

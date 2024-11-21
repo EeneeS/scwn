@@ -1,4 +1,5 @@
 import * as Utils from "../../utils.js";
+import * as Bus from "../../bus.js";
 
 export function createEditor() {
   return {
@@ -147,6 +148,9 @@ function getTextEditorElements() {
  * @param {string} value 
   */
 function saveChange(state, id, el, type, value) {
+  if (state.widget.editor.changes.length === 0) {
+    Bus.publish('change-saved', {});
+  };
   const existingChange = state.widget.editor.changes.find(change => change.id === id && change.type === type);
   if (existingChange) {
     existingChange.value = value;
@@ -154,4 +158,13 @@ function saveChange(state, id, el, type, value) {
     const change = { id, el, type, value };
     state.widget.editor.changes.push(change);
   }
+};
+
+/**
+ * @param {State} state
+ */
+export function publishChanges(state) {
+  // TODO: backend
+  state.widget.editor.changes = [];
+  Bus.publish('changes-published', {});
 };

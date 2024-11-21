@@ -5,6 +5,8 @@ export function init() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
   Bus.listen('element-selected', handleElementSelected);
+  Bus.listen('change-saved', handleChangeSaved);
+  Bus.listen('changes-published', handlePublishChanges);
 };
 
 function toggleWidget() {
@@ -50,4 +52,17 @@ function loadTextEditor() {
 function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
   $textElementEditor.classList.add("hidden");
+};
+
+function handleChangeSaved() {
+  /** @type {HTMLButtonElement|null} */
+  const $saveBtn = document.querySelector(".save-editor-changes");
+  $saveBtn.disabled = false;
+};
+
+function handlePublishChanges() {
+  /** @type {HTMLButtonElement|null} */
+  const $saveBtn = document.querySelector(".save-editor-changes");
+  $saveBtn.disabled = true;
+  hideEditors();
 };
