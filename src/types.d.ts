@@ -10,6 +10,7 @@ declare global {
   };
 
   type Editor = {
+    changes: Change[];
     textEditor: {
       listeners: {
         value: ((e: Event) => void) | null;
@@ -18,6 +19,13 @@ declare global {
         weight: ((e: Event) => void) | null;
       }
     }
+  };
+
+  type Change = {
+    id: string;
+    el: HTMLElement;
+    type: string;
+    value: string;
   };
 
   type Widget = {
@@ -30,6 +38,4 @@ declare global {
     widget: Widget;
     options: Object;
   };
-
-
 }

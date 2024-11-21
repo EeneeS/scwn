@@ -2,6 +2,7 @@ import * as Utils from "../../utils.js";
 
 export function createEditor() {
   return {
+    changes: [],
     textEditor: {
       listeners: {
         value: null,
@@ -43,49 +44,60 @@ function handleWatchText(state, el) {
   elements.$tci.value = Utils.rgbToHex(computedColor);
   elements.$dtw.value = computedWeight;
 
-  state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(e, el);
-  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(e, el);
-  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(e, el);
-  state.widget.editor.textEditor.listeners.weight = (e) => handleTextWeightChange(e, el);
+  state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el);
+  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el);
+  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el);
+  state.widget.editor.textEditor.listeners.weight = (e) => handleTextWeightChange(state, e, el);
 
   addTextListeners(state, elements);
-
 };
 
 /**
+ * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
  */
-function handleTextValueChange(evt, el) {
-  const target = /** @type {HTMLInputElement} */ (evt.target);
-  el.innerText = target.value;
+function handleTextValueChange(state, evt, el) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const input = /** @type {HTMLInputElement} */ (evt.target);
+  el.innerText = input.value;
+  saveChange(state, uniqueId, el, 'text-value', input.value);
 };
 
 /**
+ * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
  */
-function handleTextSizeChange(evt, el) {
-  const target = /** @type {HTMLInputElement} */ (evt.target);
-  el.style.fontSize = target.value;
+function handleTextSizeChange(state, evt, el) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const input = /** @type {HTMLInputElement} */ (evt.target);
+  el.style.fontSize = input.value;
+  saveChange(state, uniqueId, el, 'text-size', input.value);
 }
 
 /**
+ * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
  */
-function handleTextWeightChange(evt, el) {
-  const target = /** @type {HTMLInputElement} */ (evt.target);
-  el.style.fontWeight = target.value;
+function handleTextWeightChange(state, evt, el) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const input = /** @type {HTMLInputElement} */ (evt.target);
+  el.style.fontWeight = input.value;
+  saveChange(state, uniqueId, el, 'text-weight', input.value);
 }
 
 /**
+ * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
  */
-function handleTextColorChange(evt, el) {
-  const target = /** @type {HTMLInputElement} */ (evt.target);
-  el.style.color = target.value;
+function handleTextColorChange(state, evt, el) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const input = /** @type {HTMLInputElement} */ (evt.target);
+  el.style.color = input.value;
+  saveChange(state, uniqueId, el, 'text-color', input.value);
 }
 
 /**
@@ -124,5 +136,22 @@ function getTextEditorElements() {
     $tci: $te.querySelector("#text-color"),
     $twi: $te.querySelector("#text-weight"),
     $dtw: $te.querySelector("#default-text-weight"),
+  }
+};
+
+/**
+ * @param {State} state 
+ * @param {string} id 
+ * @param {HTMLElement} el 
+ * @param {string} type 
+ * @param {string} value 
+  */
+function saveChange(state, id, el, type, value) {
+  const existingChange = state.widget.editor.changes.find(change => change.id === id && change.type === type);
+  if (existingChange) {
+    existingChange.value = value;
+  } else {
+    const change = { id, el, type, value };
+    state.widget.editor.changes.push(change);
   }
 };

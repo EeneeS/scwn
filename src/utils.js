@@ -25,3 +25,14 @@ export function rgbToHex(rgb) {
   const [r, g, b] = rgb.match(/\d+/g).map(Number);
   return `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`;
 }
+
+/**
+ * @param {HTMLElement} el 
+ */
+export function getOrCreateUniqueId(el) {
+  if (!el.dataset.uniqueId) {
+    el.dataset.uniqueId = `el-${Math.random().toString(36).slice(2, 11)}`;
+  }
+  return el.dataset.uniqueId;
+}
+
