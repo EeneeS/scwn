@@ -9,6 +9,7 @@ export function createSelector() {
     isActive: false,
     selectedElement: null,
     selectElementListener: null,
+    keyDownListener: null,
   };
   return selector;
 };
@@ -32,6 +33,7 @@ function resetElementSelector(state) {
   };
   state.widget.selector.selectedElement = null;
 
+  document.removeEventListener('keydown', state.widget.selector.keyDownListener);
   document.removeEventListener('mouseover', handleMouseOver);
   document.removeEventListener('mouseout', handleMouseOut);
   document.removeEventListener('click', state.widget.selector.selectElementListener);
@@ -43,11 +45,23 @@ function resetElementSelector(state) {
  * @param {State} state 
  */
 function initElementSelector(state) {
+  state.widget.selector.keyDownListener = (e) => handleKeyDown(e, state);
+  document.addEventListener('keydown', state.widget.selector.keyDownListener);
   document.addEventListener('mouseover', handleMouseOver);
   document.addEventListener('mouseout', handleMouseOut);
   state.widget.selector.selectElementListener = (e) => handleMouseClick(e, state);
   document.addEventListener('click', state.widget.selector.selectElementListener);
 }
+
+/**
+ * @param {KeyboardEvent} e 
+ * @param {State} state 
+ */
+function handleKeyDown(e, state) {
+  if (e.key === "Escape") {
+    resetElementSelector(state);
+  };
+};
 
 /**
  * @param {MouseEvent} e 

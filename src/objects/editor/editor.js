@@ -41,7 +41,7 @@ function handleWatchText(state, el) {
   elements.$tvi.value = textValue;
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
-  elements.$twi.value = parseInt(computedWeight) <= 400 ? "400" : "700";
+  elements.$dtw.value = computedWeight;
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(e, el);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(e, el);
@@ -123,5 +123,6 @@ function getTextEditorElements() {
     $tsi: $te.querySelector("#text-size"),
     $tci: $te.querySelector("#text-color"),
     $twi: $te.querySelector("#text-weight"),
+    $dtw: $te.querySelector("#default-text-weight"),
   }
 };

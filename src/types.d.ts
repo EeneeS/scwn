@@ -6,6 +6,7 @@ declare global {
     isActive: boolean;
     selectedElement: HTMLElement | null;
     selectElementListener: ((e: MouseEvent) => void) | null;
+    keyDownListener: ((e: KeyboardEvent) => void) | null;
   };
 
   type Editor = {
