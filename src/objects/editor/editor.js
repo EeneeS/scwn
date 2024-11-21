@@ -165,6 +165,8 @@ function saveChange(state, id, el, type, value) {
  */
 export function publishChanges(state) {
   // TODO: backend
-  state.widget.editor.changes = [];
+  //state.widget.editor.changes = [];
   Bus.publish('changes-published', {});
+  console.log(state.widget.editor.changes);
+  state.widget.editor = createEditor();
 };
