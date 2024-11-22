@@ -20,6 +20,8 @@
   }
 
   .open-widget-container {
+    display: flex;
+    flex-direction: column;
     min-height: 600px;
     min-width: 600px;
     padding: 1rem;
@@ -54,6 +56,34 @@
     align-items: center;
     gap: 8px;
     margin-top: 16px;
+  }
+
+  .widget-actions {
+    margin-top: auto;
+  }
+
+  .save-editor-changes {
+    all: unset;
+    background-color: #0084FF;
+    color: white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  .save-editor-changes:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+
+  .cancel-editor-changes {
+    all: unset;
+    color: black;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  .cancel-editor-changes:disabled {
+    cursor: not-allowed;
   }
 
   .element-highlight {
@@ -112,7 +142,10 @@
         <input id="text-color" type="color">
       </div>
     </div>
-    <button disabled class="save-editor-changes">save changes</button>
+    <div class="widget-actions">
+      <button disabled class="save-editor-changes">save changes</button>
+      <button disabled class="cancel-editor-changes">cancel changes</button>
+    </div>
   </div>
   <img class="open-widget-btn" src="logo.svg" />
 </div>

@@ -9,6 +9,7 @@ import * as EditorSave from "./objects/editor/save.js";
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
 const $saveChangesBtn = document.querySelector(".save-editor-changes");
+const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 
 /**
  * @param {Object} opts 
@@ -37,6 +38,15 @@ function addListeners(state) {
     e.preventDefault();
     EditorSave.publish(state);
   });
+
+  $cancelChangesBtn.addEventListener('click', function(e) {
+    console.log('test');
+    e.preventDefault();
+    alert("NYI");
+    // TODO: implement canceling changes and restoring the page...
+    //EditorSave.cancel(state);
+  });
+
 };
 
 export const version = "1.0.0";

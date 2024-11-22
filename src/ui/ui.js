@@ -60,11 +60,15 @@ function hideEditors() {
 function handleChangeSaved(e) {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");
+  /** @type {HTMLButtonElement|null} */
+  const $cancelBtn = document.querySelector(".cancel-editor-changes");
   const amount = e.detail.amount;
   if (amount > 0) {
     $saveBtn.disabled = false;
+    $cancelBtn.disabled = false;
   } else {
     $saveBtn.disabled = true;
+    $cancelBtn.disabled = false;
   };
 };
 
