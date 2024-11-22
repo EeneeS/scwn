@@ -10,12 +10,16 @@ import * as Editor from "./editor.js";
  * @param {string} newValue 
  */
 export function save(state, id, el, type, original, newValue) {
-  const existingChange = state.widget.editor.changes.find(change => change.id === id && change.type === type);
-  if (existingChange) {
-    existingChange.newValue = newValue;
+  if (original === newValue) {
+    removeFromChanges(state, id, type);
   } else {
-    const change = { id, el, type, original, newValue };
-    state.widget.editor.changes.push(change);
+    const existingChange = state.widget.editor.changes.find(change => change.id === id && change.type === type);
+    if (existingChange) {
+      existingChange.newValue = newValue;
+    } else {
+      const change = { id, el, type, original, newValue };
+      state.widget.editor.changes.push(change);
+    }
   }
   Bus.publish('change-saved', { amount: state.widget.editor.changes.length });
 };
@@ -27,4 +31,15 @@ export function publish(state) {
   Bus.publish('changes-published', {});
   console.log(state.widget.editor.changes); // TODO: backend
   Editor.resetEditor(state);
+};
+
+/**
+ * @param {State} state
+ * @param {string} id 
+ * @param {string} type 
+ */
+function removeFromChanges(state, id, type) {
+  state.widget.editor.changes = state.widget.editor.changes.filter(change => {
+    return !(change.id === id && change.type === type);
+  });
 };
