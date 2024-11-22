@@ -68,7 +68,7 @@ function handleChangeSaved(e) {
     $cancelBtn.disabled = false;
   } else {
     $saveBtn.disabled = true;
-    $cancelBtn.disabled = false;
+    $cancelBtn.disabled = true;
   };
 };
 

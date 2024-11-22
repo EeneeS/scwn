@@ -10,6 +10,8 @@ const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
 const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
+const $undoChangeBtn = document.querySelector(".undo-editor-change");
+const $redoChangeBtn = document.querySelector(".redo-editor-change");
 
 /**
  * @param {Object} opts 
@@ -45,6 +47,16 @@ function addListeners(state) {
     alert("NYI");
     // TODO: implement canceling changes and restoring the page...
     //EditorSave.cancel(state);
+  });
+
+  $undoChangeBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    EditorSave.undo(state);
+  });
+
+  $redoChangeBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    EditorSave.redo(state);
   });
 
 };

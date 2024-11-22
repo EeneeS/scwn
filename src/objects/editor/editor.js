@@ -4,6 +4,8 @@ import * as EditorSave from "./save.js";
 export function createEditor() {
   return {
     changes: [],
+    undoStack: [],
+    redoStack: [],
     textEditor: {
       listeners: {
         value: null,
@@ -53,7 +55,6 @@ function handleWatchText(state, el) {
   elements.$tci.value = Utils.rgbToHex(computedColor);
   elements.$twi.value = "default";
   elements.$dtw.value = computedWeight;
-
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);

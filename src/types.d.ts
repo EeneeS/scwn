@@ -11,6 +11,8 @@ declare global {
 
   type Editor = {
     changes: Change[];
+    undoStack: Change[];
+    redoStack: Change[];
     textEditor: {
       listeners: {
         value: ((e: Event) => void) | null;
