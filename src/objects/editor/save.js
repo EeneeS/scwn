@@ -89,5 +89,21 @@ export function undo(state) {
  * @param {State} state
  */
 export function redo(state) {
+  const lastChange = state.widget.editor.redoStack.pop();
+  state.widget.editor.undoStack.push(lastChange);
+  const type = lastChange.type;
+  switch (type) {
+    case "text-value":
+      lastChange.el.textContent = lastChange.newValue;
+      break;
+    case "text-size":
+      lastChange.el.style.fontSize = lastChange.newValue;
+      break;
+    case "text-color":
+      lastChange.el.style.color = lastChange.newValue;
+      break;
+    case "text-weight":
+      lastChange.el.style.fontWeight = lastChange.newValue;
+  }
 };
 
