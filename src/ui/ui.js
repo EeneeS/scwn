@@ -7,6 +7,8 @@ export function init() {
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
   Bus.listen('changes-published', handlePublishChanges);
+  Bus.listen('update-undo-stack', handleUndoButton);
+  Bus.listen('update-redo-stack', handleRedoButton);
 };
 
 function toggleWidget() {
@@ -77,4 +79,32 @@ function handlePublishChanges() {
   const $saveBtn = document.querySelector(".save-editor-changes");
   $saveBtn.disabled = true;
   hideEditors();
+};
+
+/**
+ * @param {CustomEvent} e
+ */
+function handleUndoButton(e) {
+  const amount = e.detail.amount;
+  /** @type {HTMLButtonElement|null} */
+  const $undoBtn = document.querySelector(".undo-editor-change");
+  if (amount > 0) {
+    $undoBtn.disabled = false;
+  } else {
+    $undoBtn.disabled = true;
+  }
+};
+
+/**
+ * @param {CustomEvent} e 
+ */
+function handleRedoButton(e) {
+  const amount = e.detail.amount;
+  /** @type {HTMLButtonElement|null} */
+  const $redoBtn = document.querySelector(".redo-editor-change");
+  if (amount > 0) {
+    $redoBtn.disabled = false;
+  } else {
+    $redoBtn.disabled = true;
+  }
 };

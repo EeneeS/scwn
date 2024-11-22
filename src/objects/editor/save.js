@@ -49,7 +49,8 @@ function removeFromChanges(state, id, type) {
  */
 function addToUndoStack(state, change) {
   state.widget.editor.undoStack.push(change);
-  // TODO: handle ui
+  Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
+  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
 };
 
 /**
@@ -61,6 +62,18 @@ function removeFromUndoStack(state, id, type) {
   state.widget.editor.undoStack = state.widget.editor.changes.filter(c => {
     return !(c.id === id && c.type === type)
   });
+  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
+  Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
+};
+
+/**
+ * @param {State} state 
+ * @param {Change} change 
+ */
+function addToRedoStack(state, change) {
+  state.widget.editor.redoStack.push(change);
+  Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
+  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
 };
 
 /**
@@ -68,7 +81,7 @@ function removeFromUndoStack(state, id, type) {
  */
 export function undo(state) {
   const lastChange = state.widget.editor.undoStack.pop();
-  state.widget.editor.redoStack.push(lastChange);
+  addToRedoStack(state, lastChange);
   const type = lastChange.type;
   switch (type) {
     case "text-value":
@@ -90,7 +103,7 @@ export function undo(state) {
  */
 export function redo(state) {
   const lastChange = state.widget.editor.redoStack.pop();
-  state.widget.editor.undoStack.push(lastChange);
+  addToUndoStack(state, lastChange);
   const type = lastChange.type;
   switch (type) {
     case "text-value":
