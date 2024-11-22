@@ -51,7 +51,7 @@ function handleWatchText(state, el) {
   elements.$tvi.value = textValue;
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
-  elements.$twi.value = "normal";
+  elements.$twi.value = "default";
   elements.$dtw.value = computedWeight;
 
 
