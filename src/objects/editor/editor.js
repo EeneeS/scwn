@@ -42,7 +42,6 @@ export function watch(state, el) {
  * @param {HTMLElement} el
   */
 function handleWatchText(state, el) {
-
   const elements = getTextEditorElements();
 
   const textValue = el.innerText;
@@ -53,7 +52,6 @@ function handleWatchText(state, el) {
   elements.$tvi.value = textValue;
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
-  elements.$twi.value = "default";
   elements.$dtw.value = computedWeight;
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
