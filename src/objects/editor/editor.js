@@ -73,7 +73,8 @@ function handleWatchText(state, el) {
 function handleTextValueChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
-  EditorSave.save(state, uniqueId, el, 'text-value', original, input.value);
+  const change = { id: uniqueId, el: el, type: "text-value", original: original, newValue: input.value };
+  EditorSave.save(state, change);
   el.innerText = input.value;
 };
 
@@ -87,7 +88,8 @@ function handleTextSizeChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontSize = input.value;
-  EditorSave.save(state, uniqueId, el, 'text-size', original, input.value);
+  const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: input.value };
+  EditorSave.save(state, change);
 }
 
 /**
@@ -100,7 +102,8 @@ function handleTextWeightChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontWeight = input.value;
-  EditorSave.save(state, uniqueId, el, 'text-weight', original, input.value);
+  const change = { id: uniqueId, el: el, type: "text-weight", original: original, newValue: input.value };
+  EditorSave.save(state, change);
 }
 
 /**
@@ -113,7 +116,8 @@ function handleTextColorChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.color = input.value;
-  EditorSave.save(state, uniqueId, el, 'text-color', original, input.value);
+  const change = { id: uniqueId, el: el, type: "text-color", original: original, newValue: input.value };
+  EditorSave.save(state, change);
 }
 
 /**

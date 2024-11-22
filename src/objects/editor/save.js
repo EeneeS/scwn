@@ -3,25 +3,21 @@ import * as Editor from "./editor.js";
 
 /**
  * @param {State} state 
- * @param {string} id 
- * @param {HTMLElement} el 
- * @param {string} type 
- * @param {string} original
- * @param {string} newValue 
+ * @param {Change} change
  */
-export function save(state, id, el, type, original, newValue) {
-  if (original === newValue) {
-    removeFromChanges(state, id, type);
+export function save(state, change) {
+  if (change.original === change.newValue) {
+    removeFromChanges(state, change.id, change.type);
   } else {
     const existingChange = state.widget.editor.changes.find(
-      change => change.id === id && change.type === type
+      c => c.id === change.id && c.type === change.type
     );
     if (existingChange) {
-      existingChange.newValue = newValue;
+      existingChange.newValue = change.newValue;
     } else {
-      state.widget.editor.changes.push({ id, el, type, original, newValue });
+      state.widget.editor.changes.push(change);
     }
-    addToUndoStack(state, { id, el, type, original, newValue });
+    addToUndoStack(state, change);
   }
   Bus.publish('change-saved', { amount: state.widget.editor.changes.length });
 };
