@@ -62,8 +62,8 @@ function removeFromUndoStack(state, id, type) {
   state.widget.editor.undoStack = state.widget.editor.changes.filter(c => {
     return !(c.id === id && c.type === type)
   });
-  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
   Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
+  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
 };
 
 /**

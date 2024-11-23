@@ -26,7 +26,7 @@ declare global {
   type Change = {
     id: string;
     el: HTMLElement;
-    type: string | "text-value" | "text-size" | "text-weight" | "text-color";
+    type: string | "text-value" | "text-size" | "text-weight" | "text-color"; // change this
     original: string;
     newValue: string;
   };
