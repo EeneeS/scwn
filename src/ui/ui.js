@@ -1,7 +1,23 @@
 import * as Bus from "../bus.js";
 import * as Utils from "../utils.js";
 
-export function init() {
+/**
+ * @param {Options} opts 
+ */
+export function init(opts) {
+  const position = opts.position || "right";
+  /** @type {HTMLElement|null} */
+  const $container = document.querySelector(".widget-container");
+  if (position === "right") {
+    $container.style.right = "25px";
+    $container.style.alignItems = "flex-end";
+  } else {
+    $container.style.left = "25px";
+  }
+  addListeners();
+};
+
+function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
   Bus.listen('element-selected', handleElementSelected);

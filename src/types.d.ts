@@ -37,8 +37,12 @@ declare global {
     editor: Editor;
   };
 
+  type Options = {
+    position: string;
+  }
+
   type State = {
     widget: Widget;
-    options: Object;
+    options: Options;
   };
 }

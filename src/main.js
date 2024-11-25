@@ -3,7 +3,6 @@ import * as Widget from "./objects/widget/widget.js";
 import * as State from "./state/state.js";
 import * as UI from "./ui/ui.js";
 import * as Selector from "./objects/selector/selector.js";
-import * as Editor from "./objects/editor/editor.js";
 import * as EditorSave from "./objects/editor/save.js";
 
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
@@ -18,7 +17,7 @@ const $redoChangeBtn = document.querySelector(".redo-editor-change");
  */
 function init(opts) {
   const state = State.createState(opts);
-  UI.init();
+  UI.init(opts);
   addListeners(state);
 };
 
@@ -65,5 +64,6 @@ export const version = "1.0.0";
 export { init };
 
 init({
-  position: "bottom-right"
+  position: "right"
+  //position: "left"
 }); // for development
