@@ -15,7 +15,7 @@ const $moveLeftBtn = document.querySelector(".widget-move-left");
 const $moveRightBtn = document.querySelector(".widget-move-right");
 
 /**
- * @param {Object} opts 
+ * @param {Options} opts 
  */
 function init(opts) {
   const state = State.createState(opts);

@@ -26,6 +26,7 @@ export function save(state, change) {
  * @param {State} state
  */
 export function publish(state) {
+  // you can only publish when you are logged in
   Bus.publish('changes-published', {});
   console.log(state.widget.editor.changes); // TODO: backend
   Editor.resetEditor(state);
