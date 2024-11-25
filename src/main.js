@@ -41,7 +41,6 @@ function addListeners(state) {
   });
 
   $cancelChangesBtn.addEventListener('click', function(e) {
-    console.log('test');
     e.preventDefault();
     EditorSave.cancel(state);
   });
