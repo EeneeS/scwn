@@ -81,21 +81,13 @@ function addToRedoStack(state, change) {
  */
 export function undo(state) {
   const lastChange = state.widget.editor.undoStack.pop();
+  const change = {
+    ...lastChange,
+    newValue: lastChange.original,
+  };
   addToRedoStack(state, lastChange);
-  const type = lastChange.type;
-  switch (type) {
-    case "text-value":
-      lastChange.el.textContent = lastChange.original;
-      break;
-    case "text-size":
-      lastChange.el.style.fontSize = lastChange.original;
-      break;
-    case "text-color":
-      lastChange.el.style.color = lastChange.original;
-      break;
-    case "text-weight":
-      lastChange.el.style.fontWeight = lastChange.original;
-  }
+  save(state, change);
+  updateUIvalues(lastChange.el, lastChange.type, lastChange.original);
 };
 
 /**
@@ -104,19 +96,27 @@ export function undo(state) {
 export function redo(state) {
   const lastChange = state.widget.editor.redoStack.pop();
   addToUndoStack(state, lastChange);
-  const type = lastChange.type;
-  switch (type) {
-    case "text-value":
-      lastChange.el.textContent = lastChange.newValue;
-      break;
-    case "text-size":
-      lastChange.el.style.fontSize = lastChange.newValue;
-      break;
-    case "text-color":
-      lastChange.el.style.color = lastChange.newValue;
-      break;
-    case "text-weight":
-      lastChange.el.style.fontWeight = lastChange.newValue;
-  }
+  save(state, lastChange);
+  updateUIvalues(lastChange.el, lastChange.type, lastChange.newValue);
 };
 
+/**
+ * @param {HTMLElement} el 
+ * @param {string} type 
+ * @param {string} value 
+ */
+function updateUIvalues(el, type, value) {
+  switch (type) {
+    case "text-value":
+      el.textContent = value;
+      break;
+    case "text-size":
+      el.style.fontSize = value;
+      break;
+    case "text-color":
+      el.style.color = value;
+      break;
+    case "text-weight":
+      el.style.fontWeight = value;
+  }
+};
