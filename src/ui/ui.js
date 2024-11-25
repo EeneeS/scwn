@@ -6,16 +6,26 @@ import * as Utils from "../utils.js";
  */
 export function init(opts) {
   const position = opts.position || "right";
+  moveWidget(position);
+  addListeners();
+};
+
+/**
+ * @param {String} position 
+ */
+function moveWidget(position) {
   /** @type {HTMLElement|null} */
   const $container = document.querySelector(".widget-container");
   if (position === "right") {
+    $container.style.removeProperty("left");
     $container.style.right = "25px";
     $container.style.alignItems = "flex-end";
   } else {
+    $container.style.removeProperty("align-items");
+    $container.style.removeProperty("right");
     $container.style.left = "25px";
   }
-  addListeners();
-};
+}
 
 function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
@@ -25,6 +35,7 @@ function addListeners() {
   Bus.listen('changes-published', handlePublishChanges);
   Bus.listen('update-undo-stack', handleUndoButton);
   Bus.listen('update-redo-stack', handleRedoButton);
+  Bus.listen('move-widget', handleMoveWidget);
 };
 
 function toggleWidget() {
@@ -60,6 +71,18 @@ function handleElementSelected(e) {
   if (Utils.selectedElementType(el) === "TEXT") {
     loadTextEditor();
   };
+};
+
+/**
+ * @param {CustomEvent} e 
+ */
+function handleMoveWidget(e) {
+  const { position } = e.detail;
+  const $moveLeftBtn = document.querySelector(".widget-move-left");
+  const $moveRightBtn = document.querySelector(".widget-move-right");
+  $moveLeftBtn.classList.toggle("hidden");
+  $moveRightBtn.classList.toggle("hidden");
+  moveWidget(position);
 };
 
 function loadTextEditor() {
