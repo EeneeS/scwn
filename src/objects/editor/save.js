@@ -32,6 +32,15 @@ export function publish(state) {
 };
 
 /**
+ * @param {State} state 
+ */
+export function cancel(state) {
+  while (state.widget.editor.undoStack.length > 0) {
+    undo(state);
+  };
+};
+
+/**
  * @param {State} state
  * @param {string} id 
  * @param {string} type 

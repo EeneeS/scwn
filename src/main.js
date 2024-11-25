@@ -43,9 +43,7 @@ function addListeners(state) {
   $cancelChangesBtn.addEventListener('click', function(e) {
     console.log('test');
     e.preventDefault();
-    alert("NYI");
-    // TODO: implement canceling changes and restoring the page...
-    //EditorSave.cancel(state);
+    EditorSave.cancel(state);
   });
 
   $undoChangeBtn.addEventListener('click', function(e) {
@@ -65,5 +63,4 @@ export { init };
 
 init({
   position: "right"
-  //position: "left"
 }); // for development
