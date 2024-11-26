@@ -60,17 +60,23 @@ function handleWatchText(state, el) {
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
 
-  // TODO: make the button selected if bold, or italic or underline
+  parseInt(computedWeight) > 400 ?
+    elements.$tbb.classList.add("icon-selected") :
+    elements.$tbb.classList.remove("icon-selected");
+  computedStyle === "italic" ?
+    elements.$tib.classList.add("icon-selected") :
+    elements.$tib.classList.remove("icon-selected");
+  computedDecoration === "underline" ?
+    elements.$tub.classList.add("icon-selected") :
+    elements.$tub.classList.remove("icon-selected");
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);
   state.widget.editor.textEditor.listeners.sizeIncr = () => handleTextSizeChangeBtn(state, el, computedSize, 1, elements.$tsi);
   state.widget.editor.textEditor.listeners.sizeDecr = () => handleTextSizeChangeBtn(state, el, computedSize, -1, elements.$tsi);
-
   state.widget.editor.textEditor.listeners.bold = () => handleTextBoldChange(state, el, computedWeight);
   state.widget.editor.textEditor.listeners.italic = () => handleTextItalicChange(state, el, computedStyle);
   state.widget.editor.textEditor.listeners.underline = () => handleTextUnderlineChange(state, el, computedDecoration);
-
   state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(computedColor));
 
   addTextListeners(state, elements);
@@ -83,7 +89,6 @@ function handleWatchText(state, el) {
  * @param {string} original 
  */
 function handleTextValueChange(state, evt, el, original) {
-  console.log('change in text');
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   const change = { id: uniqueId, el: el, type: "text-value", original: original, newValue: input.value };
@@ -137,6 +142,7 @@ function handleTextBoldChange(state, el, original) {
   EditorSave.save(state, change);
   Bus.publish("toggle-text-bold", { selected: !isBold });
 };
+
 /**
  * @param {State} state 
  * @param {HTMLElement} el 
@@ -152,6 +158,7 @@ function handleTextItalicChange(state, el, original) {
   EditorSave.save(state, change);
   Bus.publish("toggle-text-italic", { selected: !isItalic });
 };
+
 /**
  * @param {State} state 
  * @param {HTMLElement} el 
