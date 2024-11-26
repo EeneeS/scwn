@@ -3,6 +3,7 @@ import * as Widget from "./objects/widget/widget.js";
 import * as State from "./state/state.js";
 import * as UI from "./ui/ui.js";
 import * as Selector from "./objects/selector/selector.js";
+import * as Editor from "./objects/editor/editor.js";
 import * as EditorSave from "./objects/editor/save.js";
 
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
@@ -11,6 +12,8 @@ const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 const $undoChangeBtn = document.querySelector(".undo-editor-change");
 const $redoChangeBtn = document.querySelector(".redo-editor-change");
+const $textSizeDecrbtn = document.querySelector(".text-size-decr-btn");
+const $textSizeIncrbtn = document.querySelector(".text-size-incr-btn");
 //const $moveLeftBtn = document.querySelector(".widget-move-left");
 //const $moveRightBtn = document.querySelector(".widget-move-right");
 

@@ -53,6 +53,8 @@ function handleWatchText(state, el) {
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);
+  state.widget.editor.textEditor.listeners.sizeIncr = () => handleTextSizeChangeBtn(state, el, computedSize, 1, elements.$tsi);
+  state.widget.editor.textEditor.listeners.sizeDecr = () => handleTextSizeChangeBtn(state, el, computedSize, -1, elements.$tsi);
   state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(computedColor));
 
   addTextListeners(state, elements);
@@ -89,6 +91,23 @@ function handleTextSizeChange(state, evt, el, original) {
 
 /**
  * @param {State} state
+ * @param {HTMLElement} el 
+ * @param {string} original
+ * @param {number} amount 
+ * @param {HTMLInputElement} inputField 
+ */
+function handleTextSizeChangeBtn(state, el, original, amount, inputField) {
+  const size = getComputedStyle(el).fontSize;
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const newValue = (parseInt(size) + amount).toString();
+  el.style.fontSize = newValue;
+  inputField.value = newValue;
+  const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: newValue };
+  EditorSave.save(state, change);
+};
+
+/**
+ * @param {State} state
  * @param {Event} evt 
  * @param {HTMLElement} el 
  * @param {string} original
@@ -108,6 +127,8 @@ function handleTextColorChange(state, evt, el, original) {
 function addTextListeners(state, elements) {
   elements.$tvi.addEventListener('change', state.widget.editor.textEditor.listeners.value);
   elements.$tsi.addEventListener('change', state.widget.editor.textEditor.listeners.size);
+  elements.$tsid.addEventListener('click', state.widget.editor.textEditor.listeners.sizeDecr);
+  elements.$tsii.addEventListener('click', state.widget.editor.textEditor.listeners.sizeIncr);
   elements.$tci.addEventListener('change', state.widget.editor.textEditor.listeners.color);
 };
 
@@ -120,6 +141,8 @@ function resetListeners(state) {
   };
   elements.$tvi.removeEventListener('change', state.widget.editor.textEditor.listeners.value);
   elements.$tsi.removeEventListener('change', state.widget.editor.textEditor.listeners.size);
+  elements.$tsid.removeEventListener('click', state.widget.editor.textEditor.listeners.sizeDecr);
+  elements.$tsii.removeEventListener('click', state.widget.editor.textEditor.listeners.sizeIncr);
   elements.$tci.removeEventListener('change', state.widget.editor.textEditor.listeners.color);
 };
 
@@ -132,6 +155,8 @@ function getTextEditorElements() {
     $te,
     $tvi: $te.querySelector("#text-value"),
     $tsi: $te.querySelector("#text-size"),
+    $tsii: $te.querySelector(".text-size-incr-btn"),
+    $tsid: $te.querySelector(".text-size-decr-btn"),
     $tci: $te.querySelector("#text-color"),
   }
 };

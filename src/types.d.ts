@@ -17,6 +17,8 @@ declare global {
       listeners: {
         value: ((e: Event) => void) | null;
         size: ((e: Event) => void) | null;
+        sizeDecr: ((e: Event) => void) | null;
+        sizeIncr: ((e: Event) => void) | null;
         color: ((e: Event) => void) | null;
       }
     }
