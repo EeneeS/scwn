@@ -44,7 +44,7 @@ declare global {
         channel: string;
       },
       github?: {
-        repository: string;
+        url: string;
       },
     }
   }
@@ -52,5 +52,8 @@ declare global {
   type State = {
     widget: Widget;
     options: Options;
+    loginTokens: {
+      github?: string;
+    }
   };
 }

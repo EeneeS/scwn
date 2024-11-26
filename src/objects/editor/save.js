@@ -26,10 +26,15 @@ export function save(state, change) {
  * @param {State} state
  */
 export function publish(state) {
-  // you can only publish when you are logged in
-  Bus.publish('changes-published', {});
-  console.log(state.widget.editor.changes); // TODO: backend
-  Editor.resetEditor(state);
+  if (state.loginTokens.github) {
+    try {
+      console.log(`changes: ${state.widget.editor.changes} token: ${state.loginTokens.github}`);
+      Bus.publish('changes-published', {});
+      Editor.resetEditor(state);
+    } catch (e) {
+      console.log('failed');
+    };
+  }
 };
 
 /**
