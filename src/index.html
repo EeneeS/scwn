@@ -26,12 +26,6 @@
     background-color: #F3F6FC;
   }
 
-  .toggle-selector-btn {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-  }
-
   .start-select-box {
     display: flex;
     align-items: center;
@@ -66,6 +60,7 @@
   .icon-wrapper {
     padding: 8px;
     border-radius: 0.5rem;
+    cursor: pointer;
   }
 
   .icon-wrapper:hover {
@@ -120,47 +115,47 @@
 <div class="widget-container">
   <div class="open-widget-container hidden">
     <div class="start-select-box">
-      <div class="icon-wrapper">
-        <img class="icon toggle-selector-btn" src="./icons/select-svgrepo-com.svg" />
+      <div class="icon-wrapper toggle-selector-btn">
+        <img class="icon" src="./icons/select-svgrepo-com.svg" />
       </div>
       <span class="widget-divider">|</span>
-      <div class="icon-wrapper">
-        <img class="icon undo-editor-change" src="./icons/undo-svgrepo-com.svg" />
+      <div class="icon-wrapper undo-editor-change">
+        <img class="icon" src="./icons/undo-svgrepo-com.svg" />
       </div>
-      <div class="icon-wrapper">
-        <img class="icon redo-editor-change" src="./icons/redo-svgrepo-com.svg" />
+      <div class="icon-wrapper redo-editor-change">
+        <img class="icon" src="./icons/redo-svgrepo-com.svg" />
       </div>
     </div>
     <span class="widget-divider">|</span>
     <div class="text-element-editor">
       <input id="text-value" />
-      <div class="icon-wrapper">
-        <img class="icon text-size-decr-btn" src="./icons/minus-svgrepo-com.svg" />
+      <div class="icon-wrapper text-size-decr-btn">
+        <img class="icon" src="./icons/minus-svgrepo-com.svg" />
       </div>
       <input id="text-size" type="number">
-      <div class="icon-wrapper">
-        <img class="icon text-size-incr-btn" src="./icons/plus-large-svgrepo-com.svg" />
+      <div class="icon-wrapper text-size-incr-btn">
+        <img class="icon" src="./icons/plus-large-svgrepo-com.svg" />
       </div>
       <span class="widget-divider">|</span>
-      <div class="icon-wrapper">
-        <img class="icon text-bold" src="./icons/bold-svgrepo-com.svg">
+      <div class="icon-wrapper text-bold">
+        <img class="icon" src="./icons/bold-svgrepo-com.svg">
       </div>
-      <div class="icon-wrapper">
-        <img class="icon text-italic" src="./icons/italic-svgrepo-com.svg">
+      <div class="icon-wrapper text-italic">
+        <img class="icon" src="./icons/italic-svgrepo-com.svg">
       </div>
-      <div class="icon-wrapper">
-        <img class="icon text-bold" src="./icons/underline-669-svgrepo-com.svg">
+      <div class="icon-wrapper text-underline">
+        <img class="icon" src="./icons/underline-669-svgrepo-com.svg">
       </div>
       <span class="widget-divider">|</span>
       <input id="text-color" type="color">
       <span class="widget-divider">|</span>
     </div>
     <div class="widget-actions">
-      <div class="icon-wrapper">
-        <img class="icon cancel-editor-changes" src="./icons/cancel-svgrepo-com.svg" />
+      <div class="icon-wrapper cancel-editor-changes">
+        <img class="icon" src="./icons/cancel-svgrepo-com.svg" />
       </div>
-      <div class="icon-wrapper">
-        <img class="icon save-editor-changes" src="./icons/check-svgrepo-com.svg" />
+      <div class="icon-wrapper save-editor-changes">
+        <img class="icon" src="./icons/check-svgrepo-com.svg" />
       </div>
     </div>
   </div>

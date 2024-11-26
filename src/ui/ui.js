@@ -35,6 +35,9 @@ function addListeners() {
   Bus.listen('changes-published', handlePublishChanges);
   Bus.listen('update-undo-stack', handleUndoButton);
   Bus.listen('update-redo-stack', handleRedoButton);
+  Bus.listen('toggle-text-bold', handleToggleTextBold);
+  Bus.listen('toggle-text-italic', handleToggleTextItalic);
+  Bus.listen('toggle-text-underline', handleToggleTextunderline);
   //Bus.listen('move-widget', handleMoveWidget);
 };
 
@@ -88,6 +91,46 @@ function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
   $textElementEditor.classList.add("hidden");
 };
+
+/**
+ * @param {CustomEvent} e 
+ */
+function handleToggleTextBold(e) {
+  const selected = e.detail.selected;
+  const $boldBtn = document.querySelector(".text-bold");
+  if (selected) {
+    $boldBtn.classList.add("icon-selected");
+  } else {
+    $boldBtn.classList.remove("icon-selected");
+  }
+}
+
+/**
+ * @param {CustomEvent} e
+ */
+function handleToggleTextItalic(e) {
+  const selected = e.detail.selected;
+  const $italicBtn = document.querySelector(".text-italic");
+  if (selected) {
+    $italicBtn.classList.add("icon-selected");
+  } else {
+    $italicBtn.classList.remove("icon-selected");
+  }
+};
+
+/**
+ * @param {CustomEvent} e 
+ */
+function handleToggleTextunderline(e) {
+  const selected = e.detail.selected;
+  const $underlineBtn = document.querySelector(".text-underline");
+  if (selected) {
+    $underlineBtn.classList.add("icon-selected");
+  } else {
+    $underlineBtn.classList.remove("icon-selected");
+  }
+
+}
 
 /**
  * @param {CustomEvent} e

@@ -1,3 +1,4 @@
+import * as Bus from "../../bus.js";
 import * as Utils from "../../utils.js";
 import * as EditorSave from "./save.js";
 
@@ -10,7 +11,12 @@ export function createEditor() {
       listeners: {
         value: null,
         size: null,
+        sizeIncr: null,
+        sizeDecr: null,
         color: null,
+        bold: null,
+        italic: null,
+        underline: null,
       }
     }
   };
@@ -46,15 +52,25 @@ function handleWatchText(state, el) {
   const textValue = el.innerText;
   const computedSize = getComputedStyle(el).fontSize.slice(0, -2);
   const computedColor = getComputedStyle(el).color;
+  const computedWeight = getComputedStyle(el).fontWeight;
+  const computedStyle = getComputedStyle(el).fontStyle;
+  const computedDecoration = getComputedStyle(el).textDecorationLine;
 
   elements.$tvi.value = textValue;
   elements.$tsi.value = computedSize;
   elements.$tci.value = Utils.rgbToHex(computedColor);
 
+  // TODO: make the button selected if bold, or italic or underline
+
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
   state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);
   state.widget.editor.textEditor.listeners.sizeIncr = () => handleTextSizeChangeBtn(state, el, computedSize, 1, elements.$tsi);
   state.widget.editor.textEditor.listeners.sizeDecr = () => handleTextSizeChangeBtn(state, el, computedSize, -1, elements.$tsi);
+
+  state.widget.editor.textEditor.listeners.bold = () => handleTextBoldChange(state, el, computedWeight);
+  state.widget.editor.textEditor.listeners.italic = () => handleTextItalicChange(state, el, computedStyle);
+  state.widget.editor.textEditor.listeners.underline = () => handleTextUnderlineChange(state, el, computedDecoration);
+
   state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(computedColor));
 
   addTextListeners(state, elements);
@@ -97,13 +113,59 @@ function handleTextSizeChange(state, evt, el, original) {
  * @param {HTMLInputElement} inputField 
  */
 function handleTextSizeChangeBtn(state, el, original, amount, inputField) {
-  const size = getComputedStyle(el).fontSize;
   const uniqueId = Utils.getOrCreateUniqueId(el);
+  const size = getComputedStyle(el).fontSize;
   const newValue = (parseInt(size) + amount).toString();
   el.style.fontSize = newValue;
   inputField.value = newValue;
   const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: newValue };
   EditorSave.save(state, change);
+};
+
+/**
+ * @param {State} state 
+ * @param {HTMLElement} el 
+ * @param {string} original 
+ */
+function handleTextBoldChange(state, el, original) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const weight = parseInt(getComputedStyle(el).fontWeight);
+  const isBold = weight > 400;
+  const newValue = isBold ? (original || "400") : "bold";
+  el.style.fontWeight = newValue;
+  const change = { id: uniqueId, el: el, type: "text-weight", original: original, newValue: newValue };
+  EditorSave.save(state, change);
+  Bus.publish("toggle-text-bold", { selected: !isBold });
+};
+/**
+ * @param {State} state 
+ * @param {HTMLElement} el 
+ * @param {string} original 
+ */
+function handleTextItalicChange(state, el, original) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const style = getComputedStyle(el).fontStyle;
+  const isItalic = style === "italic";
+  const newValue = isItalic ? "normal" : "italic";
+  el.style.fontStyle = newValue;
+  const change = { id: uniqueId, el: el, type: "text-style", original: original, newValue: newValue };
+  EditorSave.save(state, change);
+  Bus.publish("toggle-text-italic", { selected: !isItalic });
+};
+/**
+ * @param {State} state 
+ * @param {HTMLElement} el 
+ * @param {string} original 
+ */
+function handleTextUnderlineChange(state, el, original) {
+  const uniqueId = Utils.getOrCreateUniqueId(el);
+  const decoration = getComputedStyle(el).textDecorationLine;
+  const isUnderline = decoration === "underline";
+  const newValue = isUnderline ? "none" : "underline";
+  el.style.textDecoration = newValue;
+  const change = { id: uniqueId, el: el, type: "text-decoration", original: original, newValue: newValue };
+  EditorSave.save(state, change);
+  Bus.publish("toggle-text-underline", { selected: !isUnderline });
 };
 
 /**
@@ -129,6 +191,9 @@ function addTextListeners(state, elements) {
   elements.$tsi.addEventListener('change', state.widget.editor.textEditor.listeners.size);
   elements.$tsid.addEventListener('click', state.widget.editor.textEditor.listeners.sizeDecr);
   elements.$tsii.addEventListener('click', state.widget.editor.textEditor.listeners.sizeIncr);
+  elements.$tbb.addEventListener('click', state.widget.editor.textEditor.listeners.bold);
+  elements.$tib.addEventListener('click', state.widget.editor.textEditor.listeners.italic);
+  elements.$tub.addEventListener('click', state.widget.editor.textEditor.listeners.underline);
   elements.$tci.addEventListener('change', state.widget.editor.textEditor.listeners.color);
 };
 
@@ -143,6 +208,9 @@ function resetListeners(state) {
   elements.$tsi.removeEventListener('change', state.widget.editor.textEditor.listeners.size);
   elements.$tsid.removeEventListener('click', state.widget.editor.textEditor.listeners.sizeDecr);
   elements.$tsii.removeEventListener('click', state.widget.editor.textEditor.listeners.sizeIncr);
+  elements.$tbb.removeEventListener('click', state.widget.editor.textEditor.listeners.bold);
+  elements.$tib.removeEventListener('click', state.widget.editor.textEditor.listeners.italic);
+  elements.$tub.removeEventListener('click', state.widget.editor.textEditor.listeners.underline);
   elements.$tci.removeEventListener('change', state.widget.editor.textEditor.listeners.color);
 };
 
@@ -157,6 +225,9 @@ function getTextEditorElements() {
     $tsi: $te.querySelector("#text-size"),
     $tsii: $te.querySelector(".text-size-incr-btn"),
     $tsid: $te.querySelector(".text-size-decr-btn"),
+    $tbb: $te.querySelector(".text-bold"),
+    $tib: $te.querySelector(".text-italic"),
+    $tub: $te.querySelector(".text-underline"),
     $tci: $te.querySelector("#text-color"),
   }
 };

@@ -19,6 +19,9 @@ declare global {
         size: ((e: Event) => void) | null;
         sizeDecr: ((e: Event) => void) | null;
         sizeIncr: ((e: Event) => void) | null;
+        bold: ((e: Event) => void) | null;
+        italic: ((e: Event) => void) | null;
+        underline: ((e: Event) => void) | null;
         color: ((e: Event) => void) | null;
       }
     }
