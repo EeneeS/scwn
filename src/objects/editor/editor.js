@@ -136,7 +136,10 @@ function handleTextBoldChange(state, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const weight = parseInt(getComputedStyle(el).fontWeight);
   const isBold = weight > 400;
-  const newValue = isBold ? (original || "400") : "bold";
+  let newValue = isBold ? (original || "400") : "bold";
+  if (isBold && parseInt(original) >= 700) {
+    newValue = "400";
+  }
   el.style.fontWeight = newValue;
   const change = { id: uniqueId, el: el, type: "text-weight", original: original, newValue: newValue };
   EditorSave.save(state, change);
