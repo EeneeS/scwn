@@ -50,34 +50,35 @@ function handleWatchText(state, el) {
   const elements = getTextEditorElements();
 
   const textValue = el.innerText;
-  const computedSize = getComputedStyle(el).fontSize.slice(0, -2);
-  const computedColor = getComputedStyle(el).color;
-  const computedWeight = getComputedStyle(el).fontWeight;
-  const computedStyle = getComputedStyle(el).fontStyle;
-  const computedDecoration = getComputedStyle(el).textDecorationLine;
+
+  const styles = getComputedStyle(el);
+
+  let { fontSize } = styles;
+  const { color, fontWeight, fontStyle, textDecorationLine } = styles;
+  fontSize = fontSize.slice(0, -2);
 
   elements.$tvi.value = textValue;
-  elements.$tsi.value = computedSize;
-  elements.$tci.value = Utils.rgbToHex(computedColor);
+  elements.$tsi.value = fontSize;
+  elements.$tci.value = Utils.rgbToHex(color);
 
-  parseInt(computedWeight) > 400 ?
+  parseInt(fontWeight) > 400 ?
     elements.$tbb.classList.add("icon-selected") :
     elements.$tbb.classList.remove("icon-selected");
-  computedStyle === "italic" ?
+  fontStyle === "italic" ?
     elements.$tib.classList.add("icon-selected") :
     elements.$tib.classList.remove("icon-selected");
-  computedDecoration === "underline" ?
+  textDecorationLine === "underline" ?
     elements.$tub.classList.add("icon-selected") :
     elements.$tub.classList.remove("icon-selected");
 
   state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
-  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, computedSize);
-  state.widget.editor.textEditor.listeners.sizeIncr = () => handleTextSizeChangeBtn(state, el, computedSize, 1, elements.$tsi);
-  state.widget.editor.textEditor.listeners.sizeDecr = () => handleTextSizeChangeBtn(state, el, computedSize, -1, elements.$tsi);
-  state.widget.editor.textEditor.listeners.bold = () => handleTextBoldChange(state, el, computedWeight);
-  state.widget.editor.textEditor.listeners.italic = () => handleTextItalicChange(state, el, computedStyle);
-  state.widget.editor.textEditor.listeners.underline = () => handleTextUnderlineChange(state, el, computedDecoration);
-  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(computedColor));
+  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, fontSize);
+  state.widget.editor.textEditor.listeners.sizeIncr = () => handleTextSizeChangeBtn(state, el, fontSize, 1, elements.$tsi);
+  state.widget.editor.textEditor.listeners.sizeDecr = () => handleTextSizeChangeBtn(state, el, fontSize, -1, elements.$tsi);
+  state.widget.editor.textEditor.listeners.bold = () => handleTextBoldChange(state, el, fontWeight);
+  state.widget.editor.textEditor.listeners.italic = () => handleTextItalicChange(state, el, fontStyle);
+  state.widget.editor.textEditor.listeners.underline = () => handleTextUnderlineChange(state, el, textDecorationLine);
+  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(color));
 
   addTextListeners(state, elements);
 };

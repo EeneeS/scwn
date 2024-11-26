@@ -121,7 +121,7 @@ export function redo(state) {
 
 /**
  * @param {HTMLElement} el 
- * @param {string} type 
+ * @param {ChangeType} type 
  * @param {string} value 
  */
 function updateUIvalues(el, type, value) {
@@ -137,5 +137,12 @@ function updateUIvalues(el, type, value) {
       break;
     case "text-weight":
       el.style.fontWeight = value;
+      break;
+    case "text-style":
+      el.style.fontStyle = value;
+      break;
+    case "text-decoration":
+      el.style.textDecorationLine = value;
+      break;
   }
 };

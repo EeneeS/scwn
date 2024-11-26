@@ -30,10 +30,12 @@ declare global {
   type Change = {
     id: string;
     el: HTMLElement;
-    type: string | "text-value" | "text-size" | "text-weight" | "text-color"; // change this
+    type: ChangeType;
     original: string;
     newValue: string;
   };
+
+  type ChangeType = "text-value" | "text-size" | "text-weight" | "text-color" | "text-style" | "text-decoration";
 
   type Widget = {
     isOpen: boolean;

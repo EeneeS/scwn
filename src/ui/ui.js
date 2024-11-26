@@ -54,9 +54,9 @@ function toggleSelector(e) {
   /** @type {HTMLElement|null} */
   const $toggleSelectorButton = document.querySelector(".toggle-selector-btn");
   if (isActive) {
-    $toggleSelectorButton.style.fill = "#0084FF";
+    $toggleSelectorButton.classList.add("icon-selected");
   } else {
-    $toggleSelectorButton.style.fill = "black";
+    $toggleSelectorButton.classList.remove("icon-selected");
   };
 }
 
