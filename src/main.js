@@ -73,11 +73,6 @@ function addListeners(state) {
 export const version = "1.0.0";
 export { init };
 
-init({
-  position: "right",
-  publishTargets: {
-    github: {
-      url: "https://github.com/EeneeS/scwn",
-    },
-  },
-}); // for development
+//init({
+//  position: "right",
+//}); // for development
