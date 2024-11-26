@@ -8,9 +8,7 @@ export function createState(opts) {
   const state = {
     widget: Widget.createWidget(),
     options: opts,
-    loginTokens: {
-      github: "development-token",
-    },
+    projectId: null,
   };
   return state;
 };

@@ -92,6 +92,7 @@ function handleWatchText(state, el) {
 function handleTextValueChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-value", original: original, newValue: input.value };
   EditorSave.save(state, change);
   el.innerText = input.value;
@@ -107,6 +108,7 @@ function handleTextSizeChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontSize = input.value;
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: input.value };
   EditorSave.save(state, change);
 }
@@ -124,6 +126,7 @@ function handleTextSizeChangeBtn(state, el, original, amount, inputField) {
   const newValue = (parseInt(size) + amount).toString();
   el.style.fontSize = newValue;
   inputField.value = newValue;
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: newValue };
   EditorSave.save(state, change);
 };
@@ -142,6 +145,7 @@ function handleTextBoldChange(state, el, original) {
     newValue = "400";
   }
   el.style.fontWeight = newValue;
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-weight", original: original, newValue: newValue };
   EditorSave.save(state, change);
   Bus.publish("toggle-text-bold", { selected: !isBold });
@@ -158,6 +162,7 @@ function handleTextItalicChange(state, el, original) {
   const isItalic = style === "italic";
   const newValue = isItalic ? "normal" : "italic";
   el.style.fontStyle = newValue;
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-style", original: original, newValue: newValue };
   EditorSave.save(state, change);
   Bus.publish("toggle-text-italic", { selected: !isItalic });
@@ -174,6 +179,7 @@ function handleTextUnderlineChange(state, el, original) {
   const isUnderline = decoration === "underline";
   const newValue = isUnderline ? "none" : "underline";
   el.style.textDecoration = newValue;
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-decoration", original: original, newValue: newValue };
   EditorSave.save(state, change);
   Bus.publish("toggle-text-underline", { selected: !isUnderline });
@@ -189,6 +195,7 @@ function handleTextColorChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.color = input.value;
+  /** @type {Change} */
   const change = { id: uniqueId, el: el, type: "text-color", original: original, newValue: input.value };
   EditorSave.save(state, change);
 }

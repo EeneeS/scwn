@@ -5,7 +5,7 @@ import * as Utils from "../utils.js";
  * @param {Options} opts 
  */
 export function init(opts) {
-  const position = opts.position || "right";
+  //const position = opts.position || "right";
   //moveWidget(position);
   addListeners();
 };

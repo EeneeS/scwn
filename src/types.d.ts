@@ -58,8 +58,6 @@ declare global {
   type State = {
     widget: Widget;
     options: Options;
-    loginTokens: {
-      github?: string;
-    }
+    projectId: string;
   };
 }
