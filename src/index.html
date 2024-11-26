@@ -4,23 +4,10 @@
 <style>
   .widget-container {
     display: flex;
-    /*flex-direction: column;*/
     gap: 15px;
     position: fixed;
     right: 10px;
     bottom: 15px;
-  }
-
-  .widget-container-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .widget-container-header img {
-    width: 25px;
-    width: 25px;
-    cursor: pointer;
   }
 
   .open-widget-btn {
@@ -36,12 +23,12 @@
     gap: 8px;
     padding: 8px;
     max-height: 64px;
-    background-color: lightgray;
+    background-color: #F3F6FC;
   }
 
   .toggle-selector-btn {
-    width: 32px;
-    height: 32px;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
   }
 
@@ -57,11 +44,18 @@
     gap: 8px;
   }
 
-  .text-element-editor div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
+  #text-size {
+    all: unset;
+    max-width: 32px;
+    text-align: center;
+    background-color: #F3F6FC;
+    border: 1px solid black;
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+  }
+
+  .widget-divider {
+    color: lightgray;
   }
 
   .widget-actions {
@@ -69,43 +63,23 @@
     align-items: center;
   }
 
-  .widget-actions img {
-    width: 25px;
-
-    height: 25px;
+  .icon-wrapper {
+    padding: 8px;
+    border-radius: 0.5rem;
   }
 
-  .save-editor-changes {
-    all: unset;
-    background-color: #0084FF;
-    color: white;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+  .icon-wrapper:hover {
+    background-color: lightgray;
   }
 
-  .save-editor-changes:disabled {
-    background-color: gray;
-    cursor: not-allowed;
+  .icon {
+    width: 16px;
+    height: 16px;
   }
 
-  .cancel-editor-changes {
-    all: unset;
-    color: black;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+  .icon-selected {
+    background-color: #D3E3FD;
   }
-
-  .cancel-editor-changes:disabled {
-    cursor: not-allowed;
-  }
-
-  .undo-editor-change {}
-
-  .undo-editor-change:disabled {}
-
-  .redo-editor-change {}
-
-  .redo-editor-change:disabled {}
 
   .element-highlight {
     outline: 2px solid #0084FF;
@@ -114,6 +88,16 @@
 
   .hidden {
     display: none;
+  }
+
+  #text-size::-webkit-inner-spin-button,
+  #text-size::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  #text-size {
+    -moz-appearance: textfield;
   }
 </style>
 
@@ -135,40 +119,49 @@
 
 <div class="widget-container">
   <div class="open-widget-container hidden">
-
     <div class="start-select-box">
-      <svg class="toggle-selector-btn" fill="#000000" width="800px" height="800px" viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg" class="icon">
-        <path
-          d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 0 0-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z" />
-      </svg>
+      <div class="icon-wrapper">
+        <img class="icon toggle-selector-btn" src="./icons/select-svgrepo-com.svg" />
+      </div>
+      <span class="widget-divider">|</span>
+      <div class="icon-wrapper">
+        <img class="icon undo-editor-change" src="./icons/undo-svgrepo-com.svg" />
+      </div>
+      <div class="icon-wrapper">
+        <img class="icon redo-editor-change" src="./icons/redo-svgrepo-com.svg" />
+      </div>
     </div>
-
-    <!--<div>-->
-    <!--  <img class="widget-move-left" src="./icons/move-left-svgrepo-com.svg" title="move widget left"-->
-    <!--    alt="move widget left" />-->
-    <!--  <img class="widget-move-right hidden" src="./icons/move-right-svgrepo-com.svg" title="move widget right"-->
-    <!--    alt="move widget right" />-->
-    <!--</div>-->
-
+    <span class="widget-divider">|</span>
     <div class="text-element-editor">
       <input id="text-value" />
+      <div class="icon-wrapper">
+        <img class="icon text-size-decr-btn" src="./icons/minus-svgrepo-com.svg" />
+      </div>
       <input id="text-size" type="number">
-      <select name="text-weight" id="text-weight">
-        <option value="default" selected id="default-text-weight">normal</option>
-        <option value="200">lighter</option>
-        <option value="700">bold</option>
-      </select>
+      <div class="icon-wrapper">
+        <img class="icon text-size-incr-btn" src="./icons/plus-large-svgrepo-com.svg" />
+      </div>
+      <span class="widget-divider">|</span>
+      <div class="icon-wrapper">
+        <img class="icon text-bold" src="./icons/bold-svgrepo-com.svg">
+      </div>
+      <div class="icon-wrapper">
+        <img class="icon text-italic" src="./icons/italic-svgrepo-com.svg">
+      </div>
+      <div class="icon-wrapper">
+        <img class="icon text-bold" src="./icons/underline-669-svgrepo-com.svg">
+      </div>
+      <span class="widget-divider">|</span>
       <input id="text-color" type="color">
+      <span class="widget-divider">|</span>
     </div>
-
     <div class="widget-actions">
-      <img class="undo-editor-change" src="./icons/undo-left-svgrepo-com.svg">
-      <img class="redo-editor-change" src="./icons/undo-right-svgrepo-com.svg">
-      <!--<button disabled class="undo-editor-change">undo changes</button>-->
-      <!--<button disabled class="redo-editor-change">redo changes</button>-->
-      <button disabled class="cancel-editor-changes">cancel changes</button>
-      <button disabled class="save-editor-changes">save changes</button>
+      <div class="icon-wrapper">
+        <img class="icon cancel-editor-changes" src="./icons/cancel-svgrepo-com.svg" />
+      </div>
+      <div class="icon-wrapper">
+        <img class="icon save-editor-changes" src="./icons/check-svgrepo-com.svg" />
+      </div>
     </div>
   </div>
   <img class="open-widget-btn" src="logo.svg" />

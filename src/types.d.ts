@@ -18,7 +18,6 @@ declare global {
         value: ((e: Event) => void) | null;
         size: ((e: Event) => void) | null;
         color: ((e: Event) => void) | null;
-        weight: ((e: Event) => void) | null;
       }
     }
   };

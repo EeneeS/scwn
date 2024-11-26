@@ -111,7 +111,7 @@ function handlePublishChanges() {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");
   $saveBtn.disabled = true;
-  hideEditors();
+  //hideEditors();
 };
 
 /**

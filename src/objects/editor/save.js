@@ -96,13 +96,15 @@ function addToRedoStack(state, change) {
  */
 export function undo(state) {
   const lastChange = state.widget.editor.undoStack.pop();
-  const change = {
-    ...lastChange,
-    newValue: lastChange.original,
+  if (lastChange) {
+    const change = {
+      ...lastChange,
+      newValue: lastChange.original,
+    };
+    addToRedoStack(state, lastChange);
+    save(state, change);
+    updateUIvalues(lastChange.el, lastChange.type, lastChange.original);
   };
-  addToRedoStack(state, lastChange);
-  save(state, change);
-  updateUIvalues(lastChange.el, lastChange.type, lastChange.original);
 };
 
 /**
@@ -110,9 +112,11 @@ export function undo(state) {
  */
 export function redo(state) {
   const lastChange = state.widget.editor.redoStack.pop();
-  addToUndoStack(state, lastChange);
-  save(state, lastChange);
-  updateUIvalues(lastChange.el, lastChange.type, lastChange.newValue);
+  if (lastChange) {
+    addToUndoStack(state, lastChange);
+    save(state, lastChange);
+    updateUIvalues(lastChange.el, lastChange.type, lastChange.newValue);
+  };
 };
 
 /**
