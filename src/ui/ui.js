@@ -6,7 +6,7 @@ import * as Utils from "../utils.js";
  */
 export function init(opts) {
   const position = opts.position || "right";
-  moveWidget(position);
+  //moveWidget(position);
   addListeners();
 };
 
@@ -35,7 +35,7 @@ function addListeners() {
   Bus.listen('changes-published', handlePublishChanges);
   Bus.listen('update-undo-stack', handleUndoButton);
   Bus.listen('update-redo-stack', handleRedoButton);
-  Bus.listen('move-widget', handleMoveWidget);
+  //Bus.listen('move-widget', handleMoveWidget);
 };
 
 function toggleWidget() {
@@ -48,18 +48,12 @@ function toggleWidget() {
  */
 function toggleSelector(e) {
   const { isActive } = e.detail;
-
   /** @type {HTMLElement|null} */
   const $toggleSelectorButton = document.querySelector(".toggle-selector-btn");
-  const $selectorText = document.querySelector(".start-select-box p");
-
   if (isActive) {
-    hideEditors();
     $toggleSelectorButton.style.fill = "#0084FF";
-    $selectorText.textContent = "Element selector active.";
   } else {
     $toggleSelectorButton.style.fill = "black";
-    $selectorText.textContent = "Select an element you want to edit.";
   };
 }
 

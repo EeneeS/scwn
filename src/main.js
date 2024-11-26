@@ -11,8 +11,8 @@ const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 const $undoChangeBtn = document.querySelector(".undo-editor-change");
 const $redoChangeBtn = document.querySelector(".redo-editor-change");
-const $moveLeftBtn = document.querySelector(".widget-move-left");
-const $moveRightBtn = document.querySelector(".widget-move-right");
+//const $moveLeftBtn = document.querySelector(".widget-move-left");
+//const $moveRightBtn = document.querySelector(".widget-move-right");
 
 /**
  * @param {Options} opts 
@@ -37,13 +37,13 @@ function addListeners(state) {
     Bus.publish('toggle-selector', { isActive: state.widget.selector.isActive });
   });
 
-  $moveLeftBtn.addEventListener('click', function() {
-    Bus.publish('move-widget', { position: 'left' });
-  });
-
-  $moveRightBtn.addEventListener('click', function() {
-    Bus.publish('move-widget', { position: 'right' });
-  });
+  //$moveLeftBtn.addEventListener('click', function() {
+  //  Bus.publish('move-widget', { position: 'left' });
+  //});
+  //
+  //$moveRightBtn.addEventListener('click', function() {
+  //  Bus.publish('move-widget', { position: 'right' });
+  //});
 
   $saveChangesBtn.addEventListener('click', function(e) {
     e.preventDefault();
