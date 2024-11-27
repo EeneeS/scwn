@@ -1,12 +1,7 @@
 import * as Bus from "../bus.js";
 import * as Utils from "../utils.js";
 
-/**
- * @param {Options} opts 
- */
-export function init(opts) {
-  //const position = opts.position || "right";
-  //moveWidget(position);
+export function init() {
   addListeners();
 };
 
@@ -30,6 +25,7 @@ function moveWidget(position) {
 function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
+  Bus.listen('toggle-bug', loadBugEditor);
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
   Bus.listen('changes-published', handlePublishChanges);
@@ -70,27 +66,37 @@ function handleElementSelected(e) {
   };
 };
 
-/**
- * @param {CustomEvent} e 
- */
-function handleMoveWidget(e) {
-  const { position } = e.detail;
-  const $moveLeftBtn = document.querySelector(".widget-move-left");
-  const $moveRightBtn = document.querySelector(".widget-move-right");
-  $moveLeftBtn.classList.toggle("hidden");
-  $moveRightBtn.classList.toggle("hidden");
-  moveWidget(position);
-};
-
 function loadTextEditor() {
+  hideEditors();
+  loadUndoRedo();
   const $textElementEditor = document.querySelector(".text-element-editor");
   $textElementEditor.classList.remove("hidden");
+};
+
+function loadBugEditor() {
+  hideEditors();
+  hideUndoRedo();
+  const $bugEditor = document.querySelector(".bug-editor");
+  $bugEditor.classList.toggle("hidden");
+  if ($bugEditor.classList.contains("hidden")) {
+    loadTextEditor();
+  }
 };
 
 function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
   $textElementEditor.classList.add("hidden");
 };
+
+function loadUndoRedo() {
+  const $undoRedoWrapper = document.querySelector(".undo-redo-wrapper");
+  $undoRedoWrapper.classList.remove("hidden");
+};
+
+function hideUndoRedo() {
+  const $undoRedoWrapper = document.querySelector(".undo-redo-wrapper");
+  $undoRedoWrapper.classList.add("hidden");
+}
 
 /**
  * @param {CustomEvent} e 
@@ -154,7 +160,7 @@ function handlePublishChanges() {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");
   $saveBtn.disabled = true;
-  //hideEditors();
+  hideEditors();
 };
 
 /**

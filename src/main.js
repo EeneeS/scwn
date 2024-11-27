@@ -12,15 +12,13 @@ const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 const $undoChangeBtn = document.querySelector(".undo-editor-change");
 const $redoChangeBtn = document.querySelector(".redo-editor-change");
-//const $moveLeftBtn = document.querySelector(".widget-move-left");
-//const $moveRightBtn = document.querySelector(".widget-move-right");
 
 /**
  * @param {Options} opts 
  */
 function init(opts) {
   const state = State.createState(opts);
-  UI.init(opts);
+  UI.init();
   addListeners(state);
 };
 
@@ -39,7 +37,7 @@ function addListeners(state) {
   });
 
   $toggleBugBtn.addEventListener('click', function() {
-    console.log('start the bug report editor');
+    Bus.publish("toggle-bug", {});
   });
 
   //$moveLeftBtn.addEventListener('click', function() {

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <script defer src="./main.js" type="module"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css">
 
@@ -28,7 +29,7 @@
     background-color: #F3F6FC;
   }
 
-  .start-select-box {
+  .undo-redo-wrapper {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -117,14 +118,14 @@
 
 <div class="widget-container">
   <div class="open-widget-container hidden">
-    <div class="start-select-box">
-      <div class="icon-wrapper toggle-selector-btn">
-        <img class="icon" src="./icons/select-svgrepo-com.svg" />
-      </div>
-      <span class="widget-divider">|</span>
-      <div class="icon-wrapper toggle-bug-btn">
-        <img class="icon" src="./icons/bug-report-svgrepo-com.svg" />
-      </div>
+    <div class="icon-wrapper toggle-selector-btn">
+      <img class="icon" src="./icons/select-svgrepo-com.svg" />
+    </div>
+    <span class="widget-divider">|</span>
+    <div class="icon-wrapper toggle-bug-btn">
+      <img class="icon" src="./icons/bug-report-svgrepo-com.svg" />
+    </div>
+    <div class="undo-redo-wrapper">
       <span class="widget-divider">|</span>
       <div class="icon-wrapper undo-editor-change">
         <img class="icon" src="./icons/undo-svgrepo-com.svg" />
@@ -156,6 +157,9 @@
       <span class="widget-divider">|</span>
       <input id="text-color" type="color">
       <span class="widget-divider">|</span>
+    </div>
+    <div class="bug-editor hidden">
+      bug editor
     </div>
     <div class="widget-actions">
       <div class="icon-wrapper cancel-editor-changes">
