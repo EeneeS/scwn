@@ -13,8 +13,7 @@ export function watch(state, el) {
 
   const styles = getComputedStyle(el);
 
-  let { fontSize } = styles;
-  const { color, fontWeight, fontStyle, textDecorationLine } = styles;
+  let { fontSize, color, fontWeight, fontStyle, textDecorationLine } = styles;
   fontSize = fontSize.slice(0, -2);
 
   elements.$tvi.value = textValue;
@@ -24,9 +23,11 @@ export function watch(state, el) {
   parseInt(fontWeight) > 400 ?
     elements.$tbb.classList.add("icon-selected") :
     elements.$tbb.classList.remove("icon-selected");
+
   fontStyle === "italic" ?
     elements.$tib.classList.add("icon-selected") :
     elements.$tib.classList.remove("icon-selected");
+
   textDecorationLine === "underline" ?
     elements.$tub.classList.add("icon-selected") :
     elements.$tub.classList.remove("icon-selected");
