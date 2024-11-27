@@ -5,23 +5,6 @@ export function init() {
   addListeners();
 };
 
-/**
- * @param {String} position 
- */
-function moveWidget(position) {
-  /** @type {HTMLElement|null} */
-  const $container = document.querySelector(".widget-container");
-  if (position === "right") {
-    $container.style.removeProperty("left");
-    $container.style.right = "25px";
-    $container.style.alignItems = "flex-end";
-  } else {
-    $container.style.removeProperty("align-items");
-    $container.style.removeProperty("right");
-    $container.style.left = "25px";
-  }
-}
-
 function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
@@ -34,7 +17,6 @@ function addListeners() {
   Bus.listen('toggle-text-bold', handleToggleTextBold);
   Bus.listen('toggle-text-italic', handleToggleTextItalic);
   Bus.listen('toggle-text-underline', handleToggleTextunderline);
-  //Bus.listen('move-widget', handleMoveWidget);
 };
 
 function toggleWidget() {
