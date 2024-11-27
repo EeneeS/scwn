@@ -46,6 +46,7 @@ function toggleWidget() {
  * @param {CustomEvent} e
  */
 function toggleSelector(e) {
+  loadTextEditor();
   const { isActive } = e.detail;
   /** @type {HTMLElement|null} */
   const $toggleSelectorButton = document.querySelector(".toggle-selector-btn");
