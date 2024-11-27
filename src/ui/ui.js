@@ -8,7 +8,7 @@ export function init() {
 function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
-  Bus.listen('toggle-bug', loadBugEditor);
+  Bus.listen('toggle-bug', toggleBugEditor);
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
   Bus.listen('changes-published', handlePublishChanges);
@@ -56,21 +56,28 @@ function loadTextEditor() {
   $textElementEditor.classList.remove("hidden");
 };
 
-function loadBugEditor() {
-  hideEditors();
-  hideUndoRedo();
+function toggleBugEditor() {
   const $bugEditor = document.querySelector(".bug-editor");
-  $bugEditor.classList.toggle("hidden");
+  const $bugEditorBtn = document.querySelector(".toggle-bug-btn");
   if ($bugEditor.classList.contains("hidden")) {
+    hideEditors();
+    hideUndoRedo();
+    $bugEditor.classList.remove("hidden");
+    $bugEditorBtn.classList.add("icon-selected");
+  } else {
     loadTextEditor();
+    $bugEditor.classList.add("hidden");
+    $bugEditorBtn.classList.remove("icon-selected");
   }
-};
+}
 
 function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
   const $bugEditor = document.querySelector(".bug-editor");
+  const $bugEditorBtn = document.querySelector(".toggle-bug-btn");
   $textElementEditor.classList.add("hidden");
   $bugEditor.classList.add("hidden");
+  $bugEditorBtn.classList.remove("icon-selected");
 };
 
 function loadUndoRedo() {
