@@ -85,7 +85,9 @@ function loadBugEditor() {
 
 function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
+  const $bugEditor = document.querySelector(".bug-editor");
   $textElementEditor.classList.add("hidden");
+  $bugEditor.classList.add("hidden");
 };
 
 function loadUndoRedo() {
