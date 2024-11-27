@@ -1,5 +1,5 @@
 import * as Utils from "../../utils.js";
-import * as TextEditor from "./text.js";
+import * as TextEditor from "./textEditor.js";
 
 export function createEditor() {
   return {
@@ -35,7 +35,7 @@ export function resetEditor(state) {
  */
 export function watch(state, el) {
   TextEditor.resetListeners(state);
-  if (Utils.selectedElementType(el) === "TEXT") TextEditor.handleWatchText(state, el);
+  if (Utils.selectedElementType(el) === "TEXT") TextEditor.watch(state, el);
   else {
     alert(`${el.tagName} not yet implemented`);
   }

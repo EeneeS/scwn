@@ -6,8 +6,8 @@ import * as EditorSave from "./save.js";
  * @param {State} state
  * @param {HTMLElement} el
   */
-export function handleWatchText(state, el) {
-  const elements = getTextEditorElements();
+export function watch(state, el) {
+  const elements = getEditorElements();
 
   const textValue = el.innerText;
 
@@ -31,16 +31,16 @@ export function handleWatchText(state, el) {
     elements.$tub.classList.add("icon-selected") :
     elements.$tub.classList.remove("icon-selected");
 
-  state.widget.editor.textEditor.listeners.value = (e) => handleTextValueChange(state, e, el, textValue);
-  state.widget.editor.textEditor.listeners.size = (e) => handleTextSizeChange(state, e, el, fontSize);
-  state.widget.editor.textEditor.listeners.sizeIncr = () => handleTextSizeChangeBtn(state, el, fontSize, 1, elements.$tsi);
-  state.widget.editor.textEditor.listeners.sizeDecr = () => handleTextSizeChangeBtn(state, el, fontSize, -1, elements.$tsi);
-  state.widget.editor.textEditor.listeners.bold = () => handleTextBoldChange(state, el, fontWeight);
-  state.widget.editor.textEditor.listeners.italic = () => handleTextItalicChange(state, el, fontStyle);
-  state.widget.editor.textEditor.listeners.underline = () => handleTextUnderlineChange(state, el, textDecorationLine);
-  state.widget.editor.textEditor.listeners.color = (e) => handleTextColorChange(state, e, el, Utils.rgbToHex(color));
+  state.widget.editor.textEditor.listeners.value = (e) => handleValueChange(state, e, el, textValue);
+  state.widget.editor.textEditor.listeners.size = (e) => handleSizeChange(state, e, el, fontSize);
+  state.widget.editor.textEditor.listeners.sizeIncr = () => handleSizeChangeBtn(state, el, fontSize, 1, elements.$tsi);
+  state.widget.editor.textEditor.listeners.sizeDecr = () => handleSizeChangeBtn(state, el, fontSize, -1, elements.$tsi);
+  state.widget.editor.textEditor.listeners.bold = () => handleBoldChange(state, el, fontWeight);
+  state.widget.editor.textEditor.listeners.italic = () => handleItalicChange(state, el, fontStyle);
+  state.widget.editor.textEditor.listeners.underline = () => handleUnderlineChange(state, el, textDecorationLine);
+  state.widget.editor.textEditor.listeners.color = (e) => handleColorChange(state, e, el, Utils.rgbToHex(color));
 
-  addTextListeners(state, elements);
+  addListeners(state, elements);
 };
 
 /**
@@ -49,7 +49,7 @@ export function handleWatchText(state, el) {
  * @param {HTMLElement} el 
  * @param {string} original 
  */
-function handleTextValueChange(state, evt, el, original) {
+function handleValueChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   /** @type {Change} */
@@ -64,7 +64,7 @@ function handleTextValueChange(state, evt, el, original) {
  * @param {HTMLElement} el 
  * @param {string} original
  */
-function handleTextSizeChange(state, evt, el, original) {
+function handleSizeChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontSize = input.value;
@@ -80,7 +80,7 @@ function handleTextSizeChange(state, evt, el, original) {
  * @param {number} amount 
  * @param {HTMLInputElement} inputField 
  */
-function handleTextSizeChangeBtn(state, el, original, amount, inputField) {
+function handleSizeChangeBtn(state, el, original, amount, inputField) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const size = getComputedStyle(el).fontSize;
   const newValue = (parseInt(size) + amount).toString();
@@ -96,7 +96,7 @@ function handleTextSizeChangeBtn(state, el, original, amount, inputField) {
  * @param {HTMLElement} el 
  * @param {string} original 
  */
-function handleTextBoldChange(state, el, original) {
+function handleBoldChange(state, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const weight = parseInt(getComputedStyle(el).fontWeight);
   const isBold = weight > 400;
@@ -116,7 +116,7 @@ function handleTextBoldChange(state, el, original) {
  * @param {HTMLElement} el 
  * @param {string} original 
  */
-function handleTextItalicChange(state, el, original) {
+function handleItalicChange(state, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const style = getComputedStyle(el).fontStyle;
   const isItalic = style === "italic";
@@ -133,7 +133,7 @@ function handleTextItalicChange(state, el, original) {
  * @param {HTMLElement} el 
  * @param {string} original 
  */
-function handleTextUnderlineChange(state, el, original) {
+function handleUnderlineChange(state, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const decoration = getComputedStyle(el).textDecorationLine;
   const isUnderline = decoration === "underline";
@@ -151,7 +151,7 @@ function handleTextUnderlineChange(state, el, original) {
  * @param {HTMLElement} el 
  * @param {string} original
  */
-function handleTextColorChange(state, evt, el, original) {
+function handleColorChange(state, evt, el, original) {
   const uniqueId = Utils.getOrCreateUniqueId(el);
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.color = input.value;
@@ -164,7 +164,7 @@ function handleTextColorChange(state, evt, el, original) {
  * @param {State} state 
  * @param {Object} elements 
  */
-function addTextListeners(state, elements) {
+function addListeners(state, elements) {
   elements.$tvi.addEventListener('change', state.widget.editor.textEditor.listeners.value);
   elements.$tsi.addEventListener('change', state.widget.editor.textEditor.listeners.size);
   elements.$tsid.addEventListener('click', state.widget.editor.textEditor.listeners.sizeDecr);
@@ -180,7 +180,7 @@ function addTextListeners(state, elements) {
  */
 export function resetListeners(state) {
   const elements = {
-    ...getTextEditorElements(),
+    ...getEditorElements(),
   };
   elements.$tvi.removeEventListener('change', state.widget.editor.textEditor.listeners.value);
   elements.$tsi.removeEventListener('change', state.widget.editor.textEditor.listeners.size);
@@ -195,7 +195,7 @@ export function resetListeners(state) {
 /**
  * @returns {Object}
  */
-function getTextEditorElements() {
+function getEditorElements() {
   const $te = document.querySelector(".text-element-editor");
   return {
     $te,
