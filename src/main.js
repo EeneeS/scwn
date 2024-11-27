@@ -7,6 +7,7 @@ import * as EditorSave from "./objects/editor/save.js";
 
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
+const $toggleBugBtn = document.querySelector(".toggle-bug-btn");
 const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 const $undoChangeBtn = document.querySelector(".undo-editor-change");
@@ -35,6 +36,10 @@ function addListeners(state) {
   $toggleSelectorBtn.addEventListener('click', function() {
     Selector.toggle(state);
     Bus.publish('toggle-selector', { isActive: state.widget.selector.isActive });
+  });
+
+  $toggleBugBtn.addEventListener('click', function() {
+    console.log('start the bug report editor');
   });
 
   //$moveLeftBtn.addEventListener('click', function() {
