@@ -36,3 +36,13 @@ export function getOrCreateUniqueId(el) {
   return el.dataset.uniqueId;
 }
 
+/**
+ * @param {Element} el 
+ * @param {string} className
+ */
+export function initAnimation(el, className) {
+  el.classList.add(className);
+  el.addEventListener('animationend', function() {
+    el.classList.remove(className);
+  });
+}

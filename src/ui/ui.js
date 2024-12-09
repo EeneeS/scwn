@@ -154,15 +154,8 @@ function handlePublishChanges() {
   hideEditors();
   loadTextEditor();
   toggleWidget();
-  const imgElement = document.querySelector('.open-widget-btn');
-
-  // Add the rotation class
-  imgElement.classList.add('rotate');
-
-  // Remove the class after the animation ends (optional)
-  imgElement.addEventListener('animationend', () => {
-    imgElement.classList.remove('rotate');
-  });
+  const openWidgetBtn = document.querySelector('.open-widget-btn');
+  Utils.initAnimation(openWidgetBtn, 'rotate');
 };
 
 /**
