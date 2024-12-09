@@ -8,6 +8,7 @@ import * as EditorSave from "./objects/editor/save.js";
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
 const $toggleBugBtn = document.querySelector(".toggle-bug-btn");
+const $toggleColorPickerBtn = document.querySelector(".color-picker-btn");
 const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 const $undoChangeBtn = document.querySelector(".undo-editor-change");
@@ -47,6 +48,10 @@ function addListeners(state) {
   //$moveRightBtn.addEventListener('click', function() {
   //  Bus.publish('move-widget', { position: 'right' });
   //});
+
+  $toggleColorPickerBtn.addEventListener('click', function() {
+    Bus.publish("toggle-color-picker", {});
+  });
 
   $saveChangesBtn.addEventListener('click', function(e) {
     e.preventDefault();

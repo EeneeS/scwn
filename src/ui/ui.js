@@ -9,6 +9,7 @@ function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
   Bus.listen('toggle-bug', toggleBugEditor);
+  Bus.listen('toggle-color-picker', toggleColorPicker);
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
   Bus.listen('changes-published', handlePublishChanges);
@@ -68,6 +69,12 @@ function toggleBugEditor() {
     $bugEditor.classList.add("hidden");
     $bugEditorBtn.classList.remove("icon-selected");
   }
+}
+
+function toggleColorPicker() {
+  /** @type {HTMLInputElement} */
+  const $colorPicker = document.querySelector(".color-picker");
+  $colorPicker.click();
 }
 
 function hideEditors() {
