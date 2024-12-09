@@ -139,18 +139,16 @@ function handleChangeSaved(e) {
   const $cancelBtn = document.querySelector(".cancel-editor-changes");
   const amount = e.detail.amount;
   if (amount > 0) {
-    $saveBtn.style.cursor = "default";
-    $cancelBtn.style.cursor = "default";
+    Utils.setCursor("default", $saveBtn, $cancelBtn);
   } else {
-    $saveBtn.style.cursor = "not-allowed";
-    $cancelBtn.style.cursor = "not-allowed";
+    Utils.setCursor("not-allowed", $saveBtn, $cancelBtn);
   };
 };
 
 function handlePublishChanges() {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");
-  $saveBtn.style.cursor = "not-allowed";
+  Utils.setCursor("not-allowed", $saveBtn);
   hideEditors();
   loadTextEditor();
   toggleWidget();

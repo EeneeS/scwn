@@ -46,3 +46,13 @@ export function initAnimation(el, className) {
     el.classList.remove(className);
   });
 }
+
+/**
+ * @param {"default" | "not-allowed" | "pointer"} type 
+ * @param {...HTMLElement} elements 
+ */
+export function setCursor(type, ...elements) {
+  elements.forEach(element => {
+    element.style.cursor = type;
+  });
+}
