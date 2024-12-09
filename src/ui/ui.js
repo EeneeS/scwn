@@ -12,6 +12,7 @@ function addListeners() {
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
   Bus.listen('changes-published', handlePublishChanges);
+  Bus.listen('changes-published-failed', handlePublishChangesFailed);
   Bus.listen('update-undo-stack', handleUndoButton);
   Bus.listen('update-redo-stack', handleRedoButton);
   Bus.listen('toggle-text-bold', handleToggleTextBold);
@@ -153,7 +154,13 @@ function handlePublishChanges() {
   const $saveBtn = document.querySelector(".save-editor-changes");
   $saveBtn.style.cursor = "not-allowed";
   hideEditors();
+  loadTextEditor();
 };
+
+// TODO: implement
+function handlePublishChangesFailed() {
+  console.log("failed publish");
+}
 
 /**
  * @param {CustomEvent} e
