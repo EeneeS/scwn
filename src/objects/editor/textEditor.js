@@ -70,7 +70,7 @@ function handleSizeChange(state, evt, el, original) {
   const input = /** @type {HTMLInputElement} */ (evt.target);
   el.style.fontSize = input.value + "px";
   /** @type {Change} */
-  const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: input.value };
+  const change = { id: uniqueId, el: el, type: "text-size", original: original + "px", newValue: input.value + "px" };
   EditorSave.save(state, change);
 }
 
@@ -88,7 +88,7 @@ function handleSizeChangeBtn(state, el, original, amount, inputField) {
   el.style.fontSize = newValue + "px";
   inputField.value = newValue;
   /** @type {Change} */
-  const change = { id: uniqueId, el: el, type: "text-size", original: original, newValue: newValue };
+  const change = { id: uniqueId, el: el, type: "text-size", original: original + "px", newValue: newValue + "px" };
   EditorSave.save(state, change);
 };
 
