@@ -74,5 +74,6 @@ export const version = "1.0.0";
 export { init };
 
 init({
-  position: "right",
+  position: "bottom-left",
+  projectId: "7e97f83b-27ec-4b41-b713-b8e3ba59ebec"
 }); // for development

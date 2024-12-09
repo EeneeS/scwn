@@ -148,6 +148,7 @@ function handleChangeSaved(e) {
   };
 };
 
+// TODO: fix this
 function handlePublishChanges() {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");

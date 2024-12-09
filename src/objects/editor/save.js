@@ -1,3 +1,4 @@
+import { api } from "../../api.js";
 import * as Bus from "../../bus.js";
 import * as Editor from "./editor.js";
 
@@ -25,8 +26,17 @@ export function save(state, change) {
 /**
  * @param {State} state
  */
-export function publish(state) {
-  console.log(state.widget.editor.changes);
+export async function publish(state) {
+  const projectId = state.options.projectId;
+  const changes = state.widget.editor.changes.map((change) => {
+    return {
+      "element": change.el.tagName,
+      "type": change.type,
+      "original_value": change.original,
+      "new_value": change.newValue,
+    };
+  });
+  await api(`/projects/${projectId}/changes`, 'POST', { changes: changes });
   Bus.publish('changes-published', {});
   Editor.resetEditor(state);
 };

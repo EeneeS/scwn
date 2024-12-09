@@ -45,19 +45,11 @@ declare global {
 
   type Options = {
     position: string;
-    publishTargets?: {
-      slack?: {
-        channel: string;
-      },
-      github?: {
-        url: string;
-      },
-    }
+    projectId: string;
   }
 
   type State = {
     widget: Widget;
     options: Options;
-    projectId: string;
   };
 }
