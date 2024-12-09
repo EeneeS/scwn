@@ -140,8 +140,8 @@ function handleChangeSaved(e) {
   const $cancelBtn = document.querySelector(".cancel-editor-changes");
   const amount = e.detail.amount;
   if (amount > 0) {
-    $saveBtn.style.cursor = "default";
-    $cancelBtn.style.cursor = "default";
+    $saveBtn.style.cursor = "normal";
+    $cancelBtn.style.cursor = "normal";
   } else {
     $saveBtn.style.cursor = "not-allowed";
     $cancelBtn.style.cursor = "not-allowed";
@@ -163,9 +163,9 @@ function handleUndoButton(e) {
   /** @type {HTMLButtonElement|null} */
   const $undoBtn = document.querySelector(".undo-editor-change");
   if (amount > 0) {
-    $undoBtn.style.cursor = "not-allowed";
-  } else {
     $undoBtn.style.cursor = "default";
+  } else {
+    $undoBtn.style.cursor = "not-allowed";
   }
 };
 
