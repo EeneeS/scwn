@@ -73,8 +73,6 @@ function removeFromChanges(state, id, type) {
  */
 function addToUndoStack(state, change) {
   state.widget.editor.undoStack.push(change);
-  Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
-  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
 };
 
 /**
@@ -86,8 +84,6 @@ function removeFromUndoStack(state, id, type) {
   state.widget.editor.undoStack = state.widget.editor.changes.filter(c => {
     return !(c.id === id && c.type === type)
   });
-  Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
-  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
 };
 
 /**
@@ -96,8 +92,6 @@ function removeFromUndoStack(state, id, type) {
  */
 function addToRedoStack(state, change) {
   state.widget.editor.redoStack.push(change);
-  Bus.publish('update-undo-stack', { amount: state.widget.editor.undoStack.length });
-  Bus.publish('update-redo-stack', { amount: state.widget.editor.redoStack.length });
 };
 
 /**

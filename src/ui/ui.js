@@ -13,8 +13,6 @@ function addListeners() {
   Bus.listen('change-saved', handleChangeSaved);
   Bus.listen('changes-published', handlePublishChanges);
   Bus.listen('changes-published-failed', handlePublishChangesFailed);
-  Bus.listen('update-undo-stack', handleUndoButton);
-  Bus.listen('update-redo-stack', handleRedoButton);
   Bus.listen('toggle-text-bold', handleToggleTextBold);
   Bus.listen('toggle-text-italic', handleToggleTextItalic);
   Bus.listen('toggle-text-underline', handleToggleTextunderline);
@@ -165,31 +163,3 @@ function handlePublishChangesFailed(e) {
   const error = e.detail.error;
   console.log(error.message);
 }
-
-/**
- * @param {CustomEvent} e
- */
-function handleUndoButton(e) {
-  const amount = e.detail.amount;
-  /** @type {HTMLButtonElement|null} */
-  const $undoBtn = document.querySelector(".undo-editor-change");
-  if (amount > 0) {
-    $undoBtn.style.cursor = "default";
-  } else {
-    $undoBtn.style.cursor = "not-allowed";
-  }
-};
-
-/**
- * @param {CustomEvent} e 
- */
-function handleRedoButton(e) {
-  const amount = e.detail.amount;
-  /** @type {HTMLButtonElement|null} */
-  const $redoBtn = document.querySelector(".redo-editor-change");
-  if (amount > 0) {
-    $redoBtn.style.cursor = "default";
-  } else {
-    $redoBtn.style.cursor = "not-allowed";
-  }
-};
