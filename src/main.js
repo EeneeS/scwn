@@ -75,5 +75,5 @@ export { init };
 
 init({
   position: "bottom-left",
-  projectId: "7e97f83b-27ec-4b41-b713-b8e3ba59ebec"
+  projectId: "fc1c2693-e872-48cb-8703-76cf7c3b84be"
 }); // for development

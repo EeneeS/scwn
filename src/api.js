@@ -11,7 +11,6 @@ export async function api(url, method = "GET", body = null, headers = {}) {
       method,
       headers: {
         'Content-Type': "application/json",
-        'Authorization': `Bearer ${localStorage.getItem("idToken")}`,
         ...headers
       }
     };
@@ -24,10 +23,6 @@ export async function api(url, method = "GET", body = null, headers = {}) {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      if (response.status === 401) {
-        // TODO: show login screen
-        console.log('unauthorized');
-      };
       throw new Error(JSON.parse(errorBody).error);
     }
 
