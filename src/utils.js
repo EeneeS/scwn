@@ -7,6 +7,10 @@ export const textElements = [
   "blockquote", "address", "figure", "figcaption"
 ];
 
+export const imageElements = [
+  "img"
+];
+
 /**
  * @param {HTMLElement} el
  */
@@ -14,6 +18,8 @@ export function selectedElementType(el) {
   const type = el.tagName.toLowerCase();
   if (textElements.includes(type)) {
     return "TEXT";
+  } else if (imageElements.includes(type)) {
+    return "IMAGE";
   };
 };
 

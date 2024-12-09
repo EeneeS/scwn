@@ -123,17 +123,26 @@
 
 <!--develop-->
 <style>
-  h1 {
+  .develop h1 {
     font-size: 50px;
   }
 
-  .testp {
+  .develop p {
     font-weight: 900;
+  }
+
+  .develop img {
+    width: 64px;
+    height: 64px;
   }
 </style>
 
-<h1>this is a test h1</h1>
-<p class="testp">this is a test p</p>
+<!--develop-->
+<div class="develop">
+  <h1 class="">develop h1</h1>
+  <p class="">develop p</p>
+  <img class="" src="./icons/check-svgrepo-com.svg" />
+</div>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--develop-->
 
@@ -181,6 +190,10 @@
         <img class="icon" src="./icons/text-color-svgrepo-com.svg">
       </div>
       <span class="widget-divider">|</span>
+    </div>
+    <div class="image-element-editor hidden">
+      <input id="image-width" />
+      <input id="image-height" />
     </div>
     <div class="bug-editor hidden">
       coming soon...

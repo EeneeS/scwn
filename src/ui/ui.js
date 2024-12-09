@@ -28,7 +28,6 @@ function toggleWidget() {
  * @param {CustomEvent} e
  */
 function toggleSelector(e) {
-  loadTextEditor();
   const { isActive } = e.detail;
   /** @type {HTMLElement|null} */
   const $toggleSelectorButton = document.querySelector(".toggle-selector-btn");
@@ -46,7 +45,9 @@ function handleElementSelected(e) {
   const el = e.detail.el;
   if (Utils.selectedElementType(el) === "TEXT") {
     loadTextEditor();
-  };
+  } else if (Utils.selectedElementType(el) === "IMAGE") {
+    loadImageEditor();
+  }
 };
 
 function loadTextEditor() {
@@ -54,6 +55,13 @@ function loadTextEditor() {
   loadUndoRedo();
   const $textElementEditor = document.querySelector(".text-element-editor");
   $textElementEditor.classList.remove("hidden");
+};
+
+function loadImageEditor() {
+  hideEditors();
+  loadUndoRedo();
+  const $imageElementEditor = document.querySelector(".image-element-editor");
+  $imageElementEditor.classList.remove("hidden");
 };
 
 function toggleBugEditor() {
@@ -79,9 +87,11 @@ function toggleColorPicker() {
 
 function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
+  const $imageElementEditor = document.querySelector(".image-element-editor");
   const $bugEditor = document.querySelector(".bug-editor");
   const $bugEditorBtn = document.querySelector(".toggle-bug-btn");
   $textElementEditor.classList.add("hidden");
+  $imageElementEditor.classList.add("hidden");
   $bugEditor.classList.add("hidden");
   $bugEditorBtn.classList.remove("icon-selected");
 };
