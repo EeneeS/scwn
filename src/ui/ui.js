@@ -140,19 +140,18 @@ function handleChangeSaved(e) {
   const $cancelBtn = document.querySelector(".cancel-editor-changes");
   const amount = e.detail.amount;
   if (amount > 0) {
-    $saveBtn.disabled = false;
-    $cancelBtn.disabled = false;
+    $saveBtn.style.cursor = "default";
+    $cancelBtn.style.cursor = "default";
   } else {
-    $saveBtn.disabled = true;
-    $cancelBtn.disabled = true;
+    $saveBtn.style.cursor = "not-allowed";
+    $cancelBtn.style.cursor = "not-allowed";
   };
 };
 
-// TODO: fix this
 function handlePublishChanges() {
   /** @type {HTMLButtonElement|null} */
   const $saveBtn = document.querySelector(".save-editor-changes");
-  $saveBtn.disabled = true;
+  $saveBtn.style.cursor = "not-allowed";
   hideEditors();
 };
 
@@ -164,9 +163,9 @@ function handleUndoButton(e) {
   /** @type {HTMLButtonElement|null} */
   const $undoBtn = document.querySelector(".undo-editor-change");
   if (amount > 0) {
-    $undoBtn.disabled = false;
+    $undoBtn.style.cursor = "not-allowed";
   } else {
-    $undoBtn.disabled = true;
+    $undoBtn.style.cursor = "default";
   }
 };
 
@@ -178,8 +177,8 @@ function handleRedoButton(e) {
   /** @type {HTMLButtonElement|null} */
   const $redoBtn = document.querySelector(".redo-editor-change");
   if (amount > 0) {
-    $redoBtn.disabled = false;
+    $redoBtn.style.cursor = "default";
   } else {
-    $redoBtn.disabled = true;
+    $redoBtn.style.cursor = "not-allowed";
   }
 };

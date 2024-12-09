@@ -36,9 +36,13 @@ export async function publish(state) {
       "new_value": change.newValue,
     };
   });
-  await api(`/projects/${projectId}/changes`, 'POST', { changes: changes });
-  Bus.publish('changes-published', {});
-  Editor.resetEditor(state);
+  try {
+    await api(`/projects/${projectId}/changes`, 'POST', { changes: changes });
+    Bus.publish('changes-published', {});
+    Editor.resetEditor(state);
+  } catch (error) {
+    // handle error
+  }
 };
 
 /**
