@@ -24,6 +24,12 @@ declare global {
         underline: ((e: Event) => void) | null;
         color: ((e: Event) => void) | null;
       }
+    },
+    imageEditor: {
+      listeners: {
+        width: ((e: Event) => void) | null;
+        height: ((e: Event) => void) | null;
+      },
     }
   };
 
@@ -35,7 +41,7 @@ declare global {
     newValue: string;
   };
 
-  type ChangeType = "text-value" | "text-size" | "text-weight" | "text-color" | "text-style" | "text-decoration";
+  type ChangeType = "text-value" | "text-size" | "text-weight" | "text-color" | "text-style" | "text-decoration" | "image-width" | "image-height";
 
   type Widget = {
     isOpen: boolean;
