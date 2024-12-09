@@ -156,7 +156,6 @@ function handlePublishChanges() {
   hideEditors();
   loadTextEditor();
   toggleWidget();
-  // TODO: when success, show some kind of popup? 
 };
 
 /**
