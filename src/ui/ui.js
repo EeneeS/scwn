@@ -155,6 +155,8 @@ function handlePublishChanges() {
   $saveBtn.style.cursor = "not-allowed";
   hideEditors();
   loadTextEditor();
+  toggleWidget();
+  // TODO: when success, show some kind of popup? 
 };
 
 /**
