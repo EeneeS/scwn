@@ -141,8 +141,8 @@ function handleChangeSaved(e) {
   const $cancelBtn = document.querySelector(".cancel-editor-changes");
   const amount = e.detail.amount;
   if (amount > 0) {
-    $saveBtn.style.cursor = "normal";
-    $cancelBtn.style.cursor = "normal";
+    $saveBtn.style.cursor = "default";
+    $cancelBtn.style.cursor = "default";
   } else {
     $saveBtn.style.cursor = "not-allowed";
     $cancelBtn.style.cursor = "not-allowed";
@@ -157,9 +157,12 @@ function handlePublishChanges() {
   loadTextEditor();
 };
 
-// TODO: implement
-function handlePublishChangesFailed() {
-  console.log("failed publish");
+/**
+ * @param {CustomEvent} e 
+ */
+function handlePublishChangesFailed(e) {
+  const error = e.detail.error;
+  console.log(error.message);
 }
 
 /**

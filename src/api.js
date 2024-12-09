@@ -24,7 +24,11 @@ export async function api(url, method = "GET", body = null, headers = {}) {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      throw new Error(`HTTP error! status: ${response.status}, message: ${errorBody}`);
+      if (response.status === 401) {
+        // TODO: show login screen
+        console.log('unauthorized');
+      };
+      throw new Error(JSON.parse(errorBody).error);
     }
 
     return await response.json();

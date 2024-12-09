@@ -41,7 +41,7 @@ export async function publish(state) {
     Bus.publish('changes-published', {});
     Editor.resetEditor(state);
   } catch (error) {
-    Bus.publish('changes-published-failed', {});
+    Bus.publish('changes-published-failed', { error: error });
   }
 };
 
