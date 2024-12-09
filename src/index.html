@@ -17,6 +17,7 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
+    transition: transform 0.3s ease;
   }
 
   .open-widget-container {
@@ -102,6 +103,21 @@
 
   #text-size {
     -moz-appearance: textfield;
+  }
+
+  @keyframes rotateAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(3600deg);
+    }
+  }
+
+  .rotate {
+    animation: rotateAnimation 3s cubic-bezier(0.5, 1, 0.1, 1);
+    animation-iteration-count: 1;
   }
 </style>
 
