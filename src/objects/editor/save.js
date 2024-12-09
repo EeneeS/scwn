@@ -34,6 +34,7 @@ export async function publish(state) {
       "type": change.type,
       "original_value": change.original,
       "new_value": change.newValue,
+      "route": window.location.pathname,
     };
   });
   try {
