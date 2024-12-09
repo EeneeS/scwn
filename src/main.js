@@ -41,14 +41,6 @@ function addListeners(state) {
     Bus.publish("toggle-bug", {});
   });
 
-  //$moveLeftBtn.addEventListener('click', function() {
-  //  Bus.publish('move-widget', { position: 'left' });
-  //});
-  //
-  //$moveRightBtn.addEventListener('click', function() {
-  //  Bus.publish('move-widget', { position: 'right' });
-  //});
-
   $toggleColorPickerBtn.addEventListener('click', function() {
     Bus.publish("toggle-color-picker", {});
   });
