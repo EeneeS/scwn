@@ -1,5 +1,6 @@
 import * as Selector from "../selector/selector.js";
 import * as Editor from "../editor/editor.js";
+import * as History from "../history/history.js";
 import * as Bus from "../../bus.js";
 
 /**
@@ -28,5 +29,6 @@ export function toggle(state) {
  */
 export function toggleHistory(state) {
   state.widget.historyOpen = !state.widget.historyOpen;
+  History.loadHistory(state);
   Bus.publish("toggle-history", { isActive: state.widget.historyOpen });
 }
