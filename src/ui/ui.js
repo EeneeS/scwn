@@ -8,7 +8,7 @@ export function init() {
 function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
-  Bus.listen('toggle-bug', toggleBugEditor);
+  Bus.listen('toggle-comment', toggleCommentEditor);
   Bus.listen('toggle-color-picker', toggleColorPicker);
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
@@ -64,18 +64,18 @@ function loadImageEditor() {
   $imageElementEditor.classList.remove("hidden");
 };
 
-function toggleBugEditor() {
-  const $bugEditor = document.querySelector(".bug-editor");
-  const $bugEditorBtn = document.querySelector(".toggle-bug-btn");
-  if ($bugEditor.classList.contains("hidden")) {
+function toggleCommentEditor() {
+  const $commentEditor = document.querySelector(".comment-editor");
+  const $commentEditorBtn = document.querySelector(".toggle-comment-btn");
+  if ($commentEditor.classList.contains("hidden")) {
     hideEditors();
     hideUndoRedo();
-    $bugEditor.classList.remove("hidden");
-    $bugEditorBtn.classList.add("icon-selected");
+    $commentEditor.classList.remove("hidden");
+    $commentEditorBtn.classList.add("icon-selected");
   } else {
     loadTextEditor();
-    $bugEditor.classList.add("hidden");
-    $bugEditorBtn.classList.remove("icon-selected");
+    $commentEditor.classList.add("hidden");
+    $commentEditorBtn.classList.remove("icon-selected");
   }
 }
 
@@ -88,12 +88,12 @@ function toggleColorPicker() {
 function hideEditors() {
   const $textElementEditor = document.querySelector(".text-element-editor");
   const $imageElementEditor = document.querySelector(".image-element-editor");
-  const $bugEditor = document.querySelector(".bug-editor");
-  const $bugEditorBtn = document.querySelector(".toggle-bug-btn");
+  const $commentEditor = document.querySelector(".comment-editor");
+  const $commentEditorBtn = document.querySelector(".toggle-comment-btn");
   $textElementEditor.classList.add("hidden");
   $imageElementEditor.classList.add("hidden");
-  $bugEditor.classList.add("hidden");
-  $bugEditorBtn.classList.remove("icon-selected");
+  $commentEditor.classList.add("hidden");
+  $commentEditorBtn.classList.remove("icon-selected");
 };
 
 function loadUndoRedo() {
