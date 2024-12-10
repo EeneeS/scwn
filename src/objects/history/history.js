@@ -15,14 +15,7 @@ export async function loadHistory(state) {
 function renderHistory(data) {
   const $container = document.querySelector(".history-container");
 
-  const grouped = data.reduce((acc, item) => {
-    const { batch_id } = item;
-    if (!acc[batch_id]) acc[batch_id] = [];
-    acc[batch_id].push(item);
-    return acc;
-  }, {});
-
-  const groupedArray = Object.entries(grouped);
+  const groupedArray = groupData(data);
 
   let html = '';
   groupedArray.forEach(([batch_id, items], index) => {
@@ -36,3 +29,16 @@ function renderHistory(data) {
 
   $container.innerHTML = html;
 };
+
+/**
+ * @param {Array} data 
+  */
+function groupData(data) {
+  const grouped = data.reduce((acc, item) => {
+    const { batch_id } = item;
+    if (!acc[batch_id]) acc[batch_id] = [];
+    acc[batch_id].push(item);
+    return acc;
+  }, {});
+  return Object.entries(grouped);
+}
