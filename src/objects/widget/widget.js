@@ -29,6 +29,8 @@ export function toggle(state) {
  */
 export function toggleHistory(state) {
   state.widget.historyOpen = !state.widget.historyOpen;
-  History.loadHistory(state);
+  if (state.widget.historyOpen) {
+    History.loadHistory(state);
+  }
   Bus.publish("toggle-history", { isActive: state.widget.historyOpen });
 }
