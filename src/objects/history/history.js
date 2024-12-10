@@ -13,7 +13,7 @@ export async function loadHistory(state) {
  * @param {Array} data
  */
 function renderHistory(data) {
-  const $container = document.querySelector(".history-container");
+  const $container = document.querySelector(".history-items");
 
   const groupedArray = groupData(data);
 
