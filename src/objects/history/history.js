@@ -17,6 +17,7 @@ function renderHistory(data) {
 
   const groupedArray = groupData(data);
 
+  // TODO: style this better :)
   let html = '';
   groupedArray.forEach(([batch_id, items], index) => {
     const className = index % 2 === 0 ? 'history-item-light' : 'history-item-dark';
