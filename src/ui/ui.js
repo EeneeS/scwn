@@ -17,6 +17,7 @@ function addListeners() {
   Bus.listen('toggle-text-bold', handleToggleTextBold);
   Bus.listen('toggle-text-italic', handleToggleTextItalic);
   Bus.listen('toggle-text-underline', handleToggleTextunderline);
+  Bus.listen('toggle-aspect-ratio-lock', handleToggleAspectRatioLock);
 };
 
 function toggleWidget() {
@@ -143,7 +144,16 @@ function handleToggleTextunderline(e) {
   } else {
     $underlineBtn.classList.remove("icon-selected");
   }
+}
 
+function handleToggleAspectRatioLock(e) {
+  const selected = e.detail.selected;
+  const $ratioBtn = document.querySelector(".lock-aspect-ratio-btn");
+  if (selected) {
+    $ratioBtn.classList.add("icon-selected");
+  } else {
+    $ratioBtn.classList.remove("icon-selected");
+  }
 }
 
 /**

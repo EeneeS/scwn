@@ -29,6 +29,7 @@ declare global {
       listeners: {
         width: ((e: Event) => void) | null;
         height: ((e: Event) => void) | null;
+        aspectRatio: ((e: Event) => void) | null;
       },
     }
   };

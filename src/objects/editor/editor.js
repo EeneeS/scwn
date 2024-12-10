@@ -23,6 +23,7 @@ export function createEditor() {
       listeners: {
         width: null,
         height: null,
+        aspectRatio: null,
       }
     }
   };
