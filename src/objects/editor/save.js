@@ -147,5 +147,11 @@ function updateUIvalues(el, type, value) {
     case "text-decoration":
       el.style.textDecorationLine = value;
       break;
+    case "image-width":
+      el.style.width = value;
+      break;
+    case "image-height":
+      el.style.height = value;
+      break;
   }
 };
