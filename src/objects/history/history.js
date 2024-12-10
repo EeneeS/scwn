@@ -10,15 +10,7 @@ export async function loadHistory(state) {
 };
 
 /**
- * Renders a history view based on grouped data.
- * @param {Array} data - The data to render.
- * @param {object} data[] - An object representing a history item.
- * @param {string} data[].batch_id - The batch ID to group items by.
- * @param {string} data[].element - The element to display.
- * @param {string} data[].type - The type of the element.
- * @param {string} data[].new_value
- * @param {string} data[].original_value
- * @param {string} data[].route
+ * @param {Array} data
  */
 function renderHistory(data) {
   const $container = document.querySelector(".history-container");
