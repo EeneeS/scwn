@@ -8,11 +8,12 @@ import * as EditorSave from "./objects/editor/save.js";
 const $toggleWidgetBtn = document.querySelector(".open-widget-btn");
 const $toggleSelectorBtn = document.querySelector(".toggle-selector-btn");
 const $toggleCommentBtn = document.querySelector(".toggle-comment-btn");
-const $toggleColorPickerBtn = document.querySelector(".color-picker-btn");
+const $toggleColorPickerBtn = document.querySelector(".color-picker-btn"); // TODO: move to textEditor.js
 const $saveChangesBtn = document.querySelector(".save-editor-changes");
 const $cancelChangesBtn = document.querySelector(".cancel-editor-changes");
 const $undoChangeBtn = document.querySelector(".undo-editor-change");
 const $redoChangeBtn = document.querySelector(".redo-editor-change");
+const $toggleHistoryBtn = document.querySelector(".toggle-history-btn");
 
 /**
  * @param {Options} opts 
@@ -29,7 +30,6 @@ function init(opts) {
 function addListeners(state) {
   $toggleWidgetBtn.addEventListener('click', function() {
     Widget.toggle(state);
-    Bus.publish('toggle-widget', {});
   });
 
   $toggleSelectorBtn.addEventListener('click', function() {
@@ -63,6 +63,11 @@ function addListeners(state) {
   $redoChangeBtn.addEventListener('click', function(e) {
     e.preventDefault();
     EditorSave.redo(state);
+  });
+
+  $toggleHistoryBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    Widget.toggleHistory(state);
   });
 
 };

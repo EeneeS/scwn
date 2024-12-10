@@ -9,6 +9,7 @@ function addListeners() {
   Bus.listen('toggle-widget', toggleWidget);
   Bus.listen('toggle-selector', toggleSelector);
   Bus.listen('toggle-comment', toggleCommentEditor);
+  Bus.listen('toggle-history', toggleHistory);
   Bus.listen('toggle-color-picker', toggleColorPicker);
   Bus.listen('element-selected', handleElementSelected);
   Bus.listen('change-saved', handleChangeSaved);
@@ -64,6 +65,22 @@ function loadImageEditor() {
   const $imageElementEditor = document.querySelector(".image-element-editor");
   $imageElementEditor.classList.remove("hidden");
 };
+
+/**
+ * @param {CustomEvent} e 
+ */
+function toggleHistory(e) {
+  const active = e.detail.isActive;
+  const $historyContainer = document.querySelector(".history-container");
+  const $toggleHistoryBtn = document.querySelector(".toggle-history-btn");
+  if (active) {
+    $historyContainer.classList.remove("hidden");
+    $toggleHistoryBtn.classList.add("icon-selected");
+  } else {
+    $historyContainer.classList.add("hidden");
+    $toggleHistoryBtn.classList.remove("icon-selected");
+  }
+}
 
 function toggleCommentEditor() {
   const $commentEditor = document.querySelector(".comment-editor");

@@ -48,6 +48,7 @@ declare global {
     isOpen: boolean;
     selector: Selector;
     editor: Editor;
+    historyOpen: boolean;
   };
 
   type Options = {
