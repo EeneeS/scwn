@@ -5,7 +5,11 @@ import { api } from "../../api.js";
  */
 export async function loadHistory(state) {
   const changes = state.widget.editor.changes;
-  populateHistoryContainer(changes);
+  if (changes.length > 0) {
+    populateHistoryContainer(changes);
+  } else {
+    populateHistoryContainerEmpty();
+  }
 };
 
 /**
@@ -48,4 +52,9 @@ function generateHTMLForChangeType(change) {
     const verb = action === "Add" ? "to" : "from";
     return `${action} ${value} ${verb} <span>${change.el.innerHTML}</span>`;
   };
+}
+
+function populateHistoryContainerEmpty() {
+  const $container = document.querySelector(".history-items");
+  $container.innerHTML = "no changes yet...";
 }
