@@ -13,6 +13,7 @@ export async function loadHistory(state) {
  */
 function populateHistoryContainer(data) {
   const $container = document.querySelector(".history-items");
+  $container.innerHTML = "";
   let html = "";
   data.forEach((change, index) => {
     const className = index % 2 == 0 ? "history-item-light" : "history-item-dark";
