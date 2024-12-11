@@ -35,12 +35,16 @@ function generateChangeHTML(change, className) {
 function generateHTMLForChangeType(change) {
   const type = change.type
   if (type === "text-value") {
-    return `Changed <span>${change.original}</span> to <span>${change.newValue}</span>`;
+    return `Change <span>${change.original}</span> to <span>${change.newValue}</span>`;
   } else if (type === "text-color") {
-    return `Changed to color of <span>${change.el.innerHTML}</span> to <span style="color: ${change.newValue}">${change.newValue.toUpperCase()}</span>`;
+    return `Change to color of <span>${change.el.innerHTML}</span> to <span style="color: ${change.newValue}">${change.newValue.toUpperCase()}</span>`;
   } else if (type === "text-size") {
-    return `Changed font size of <span>${change.el.innerHTML}</span> to ${change.newValue}`;
+    return `Change font size of <span>${change.el.innerHTML}</span> to ${change.newValue}`;
   } else {
-    return `Added ${change.newValue} to <span>${change.el.innerHTML}</span>`;
+    // TODO: refactor this...
+    const action = change.original === "normal" ? "Add" : "Remove";
+    const value = action === "Add" ? change.newValue : change.original;
+    const verb = action === "Add" ? "to" : "from";
+    return `${action} ${value} ${verb} <span>${change.el.innerHTML}</span>`;
   };
 }
