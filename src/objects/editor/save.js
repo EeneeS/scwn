@@ -37,12 +37,14 @@ export async function publish(state) {
       "route": window.location.pathname,
     };
   });
-  try {
-    await api(`/projects/${projectId}/changes`, 'POST', { changes: changes });
-    Bus.publish('changes-published', {});
-    Editor.resetEditor(state);
-  } catch (error) {
-    Bus.publish('changes-published-failed', { error: error });
+  if (changes.length > 0) {
+    try {
+      await api(`/projects/${projectId}/changes`, 'POST', { changes: changes });
+      Bus.publish('changes-published', {});
+      Editor.resetEditor(state);
+    } catch (error) {
+      Bus.publish('changes-published-failed', { error: error });
+    }
   }
 };
 
