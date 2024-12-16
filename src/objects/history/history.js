@@ -29,14 +29,14 @@ function populateHistoryContainer(data) {
 /**
  * @param {Change} change 
  * @param {string} className 
-  */
+ */
 function generateChangeHTML(change, className) {
   return `<div class="${className}">${generateHTMLForChangeType(change)}</div>`;
 }
 
 /**
  * @param {Change} change 
-  */
+ */
 function generateHTMLForChangeType(change) {
   const type = change.type
   if (type === "text-value") {
@@ -56,5 +56,5 @@ function generateHTMLForChangeType(change) {
 
 function populateHistoryContainerEmpty() {
   const $container = document.querySelector(".history-items");
-  $container.innerHTML = "no changes yet...";
+  $container.innerHTML = "<h2>no changes yet...</h2>";
 }
